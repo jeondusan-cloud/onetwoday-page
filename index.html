@@ -1,0 +1,2735 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="복잡한 관리 창이나 구독 없이 Windows 바탕화면에 깔끔하게 띄우는 무료 글래스 D-Day 위젯 IMOE_DDAY" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="IMOE_DDAY" />
+  <meta property="og:title" content="IMOE_DDAY — 무료 바탕화면 글래스 D-Day 위젯" />
+  <meta property="og:description" content="무설치 포터블 실행, 투명 글래스·블러, 자석 스냅, 매년/매월/매주 반복, 목표 진행률 바. 100% 무료 다운로드." />
+  <meta property="og:image" content="https://jeondusan-cloud.github.io/onetwoday-page/assets/og-preview.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="IMOE_DDAY — 무료 바탕화면 글래스 D-Day 위젯" />
+  <meta name="twitter:description" content="무설치 포터블 실행, 투명 글래스·블러, 자석 스냅, 매년/매월/매주 반복, 목표 진행률 바. 100% 무료 다운로드." />
+  <meta name="twitter:image" content="https://jeondusan-cloud.github.io/onetwoday-page/assets/og-preview.png" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='12' fill='%23181c2a'/%3E%3Cpath d='M4 16a12 12 0 0 1 12-12h32a12 12 0 0 1 12 12v4H4v-4z' fill='%23339af0'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Segoe UI,Arial,sans-serif' font-size='28' font-weight='bold' fill='%23ffffff'%3ED%3C/text%3E%3C/svg%3E" />
+  <title>IMOE_DDAY — 무료 바탕화면 글래스 D-Day 위젯</title>
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --card: #ffffff;
+      --text: #181c24;
+      --muted: #57606a;
+      --primary: #339af0;
+      --primary-dark: #228be6;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Malgun Gothic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+    header {
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo { font-weight: 800; font-size: 20px; display: flex; align-items: center; gap: 10px; }
+    .logo-badge {
+      background: var(--primary);
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .lang-btn {
+      background: #edf2ff;
+      color: #364fc7;
+      border: 1px solid #dbe4ff;
+      border-radius: 8px;
+      padding: 8px 13px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .lang-btn:hover { background: #dbe4ff; }
+    .hero {
+      padding: 36px 0 42px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .hero-intro {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .pill-tag {
+      display: inline-block;
+      background: #e7f5ff;
+      color: #1971c2;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    .hero h1 { font-size: 38px; line-height: 1.25; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .hero p { color: var(--muted); font-size: 16.5px; margin-bottom: 24px; }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      display: inline-block;
+      padding: 13px 24px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 15px;
+      transition: transform 0.15s, background 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-secondary { background: #e9ecef; color: var(--text); }
+
+    /* Interactive Live Desktop Demo */
+    .demo-shell {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 14px;
+      box-shadow: 0 20px 45px rgba(24, 28, 36, 0.1);
+    }
+    .demo-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 4px 4px 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .demo-controls { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .demo-chip {
+      border: 1px solid #d0d7de;
+      background: #f8fafc;
+      color: #333d4b;
+      border-radius: 7px;
+      padding: 5px 9px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .demo-chip.active {
+      background: #e7f5ff;
+      border-color: #339af0;
+      color: #1971c2;
+    }
+    .desktop-canvas {
+      position: relative;
+      height: 520px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 45%, #89f7fe 100%);
+      transition: background 0.25s;
+      user-select: none;
+    }
+    .desktop-canvas.theme-sky {
+      background: linear-gradient(135deg, #aec5d0 0%, #96b1bd 52%, #b5cbd5 100%);
+    }
+    .desktop-canvas.theme-dark {
+      background: radial-gradient(circle at 20% 20%, #2b3a67 0%, #141824 65%, #0c0f17 100%);
+    }
+    .desktop-canvas.theme-light {
+      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 55%, #dbeafe 100%);
+    }
+    .demo-customizer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+    }
+    .demo-input {
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--text);
+      border-radius: 7px;
+      padding: 7px 11px;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+    }
+    .demo-input:focus { border-color: var(--primary); }
+    .demo-input-title { flex: 1 1 130px; min-width: 110px; font-weight: 600; }
+    .demo-input-date { width: 124px; font-weight: 600; }
+    .color-palette { display: flex; align-items: center; gap: 5px; }
+    .color-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.12s, border-color 0.12s;
+    }
+    .color-dot:hover { transform: scale(1.1); }
+    .color-dot.active { border-color: #0f172a; box-shadow: 0 0 0 2px #fff inset; }
+    .size-group { display: inline-flex; gap: 3px; }
+    .size-btn {
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      color: #334155;
+      border-radius: 6px;
+      padding: 4px 7px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .size-btn.active { background: #1971c2; border-color: #1971c2; color: #fff; }
+    .add-widget-btn {
+      background: #0f172a;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 5px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-left: auto;
+    }
+    .add-widget-btn:hover { background: #1e293b; }
+    .desktop-hint {
+      position: absolute;
+      bottom: 10px;
+      left: 14px;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      background: rgba(15, 23, 42, 0.42);
+      padding: 3px 10px;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .desktop-canvas.theme-light .desktop-hint,
+    .desktop-canvas.theme-sky .desktop-hint {
+      color: #1e293b;
+      background: rgba(255, 255, 255, 0.85);
+    }
+    .snap-line {
+      position: absolute;
+      display: none;
+      pointer-events: none;
+      z-index: 2;
+      background: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 0 6px rgba(56, 189, 248, 0.7);
+    }
+    .snap-line.snap-v { top: 0; bottom: 0; width: 1.5px; }
+    .snap-line.snap-h { left: 0; right: 0; height: 1.5px; }
+    .snap-badge {
+      position: absolute;
+      display: none;
+      pointer-events: none;
+      z-index: 5;
+      background: #0284c7;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+    }
+    .glass-widget {
+      position: absolute;
+      width: 280px;
+      height: 150px;
+      border-radius: 15px;
+      padding: 0;
+      cursor: grab;
+      overflow: hidden;
+      transition: color 0.15s, box-shadow 0.15s;
+      border: none;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      z-index: 3;
+      font-family: 'Malgun Gothic', 'Segoe UI', sans-serif;
+    }
+    .glass-widget.selected { box-shadow: 0 10px 26px rgba(51, 154, 240, 0.22), 0 0 0 1.5px rgba(56, 189, 248, 0.65); }
+    .glass-widget.is-locked { cursor: default; }
+    .glass-widget:active { cursor: grabbing; }
+    .glass-widget.is-locked:active { cursor: default; }
+    .widget-hover-bar {
+      position: absolute;
+      top: 7px;
+      right: 6px;
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      padding: 2px 3px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s;
+      z-index: 6;
+    }
+    .glass-widget:hover .widget-hover-bar,
+    .glass-widget.mini-open .widget-hover-bar,
+    .glass-widget.demo-peek .widget-hover-bar {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .widget-hover-bar button {
+      border: none;
+      background: transparent;
+      color: #4E5968;
+      font-size: 10.5px;
+      font-weight: 700;
+      font-family: inherit;
+      width: 20px;
+      height: 20px;
+      margin: 0 0.5px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    .widget-hover-bar button:hover { background: rgba(0, 0, 0, 0.09); }
+    .widget-hover-bar button[data-action="add"] { color: #228BE6; font-size: 13px; font-weight: 800; }
+    .widget-hover-bar button[data-action="text"] { color: #333D4B; font-size: 11px; font-weight: 800; }
+    .widget-hover-bar button svg { width: 12px; height: 12px; display: block; pointer-events: none; }
+    .widget-mini-bar {
+      position: absolute;
+      left: 6px;
+      right: 20px;
+      bottom: 6px;
+      display: none;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 6px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+      z-index: 7;
+    }
+    .glass-widget.mini-open .widget-mini-bar { display: flex; }
+    .mini-opacity-slider {
+      flex: 1;
+      min-width: 32px;
+      max-width: 105px;
+      height: 14px;
+      accent-color: #339AF0;
+      cursor: pointer;
+    }
+    .mini-opacity-val {
+      font-size: 10px;
+      font-weight: 600;
+      color: #222730;
+      min-width: 26px;
+      text-align: right;
+    }
+    .mini-size-group { display: inline-flex; gap: 2px; }
+    .mini-size-btn {
+      width: 20px;
+      height: 19px;
+      border: none;
+      border-radius: 4px;
+      background: #E9ECEF;
+      color: #222730;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 0;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .mini-size-btn:hover:not(:disabled) { background: #D0EBFF; }
+    .mini-size-btn.active { background: #339AF0; color: #FFFFFF; }
+    .mini-size-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .widget-resize-grip {
+      position: absolute;
+      right: 3px;
+      bottom: 3px;
+      width: 16px;
+      height: 16px;
+      cursor: nwse-resize;
+      display: none;
+      align-items: flex-end;
+      justify-content: flex-end;
+      z-index: 8;
+    }
+    .glass-widget:hover:not(.is-locked) .widget-resize-grip,
+    .glass-widget.mini-open:not(.is-locked) .widget-resize-grip {
+      display: flex;
+    }
+    .widget-resize-grip::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background: rgba(51, 61, 75, 0.53);
+      display: block;
+    }
+    .demo-cta-bar {
+      margin-top: 10px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      background: #f0f7ff;
+      border: 1px solid #d0ebff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #1864ab;
+    }
+    .demo-cta-link {
+      white-space: nowrap;
+      color: #fff;
+      background: var(--primary);
+      padding: 5px 11px;
+      border-radius: 7px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .demo-cta-link:hover { background: var(--primary-dark); }
+    .widget-accent {
+      position: absolute;
+      top: 0; left: 8px; right: 8px;
+      height: 4px;
+      border-radius: 2px;
+      z-index: 2;
+    }
+    .widget-body-wrap {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 14px 14px 10px;
+      box-sizing: border-box;
+    }
+    .widget-content-grid {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      min-height: 0;
+    }
+    .glass-widget.center-align .widget-content-grid {
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+      text-align: center;
+    }
+    .widget-left-panel {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .glass-widget.center-align .widget-left-panel {
+      flex: 0 0 auto;
+      width: 100%;
+      align-items: center;
+    }
+    .widget-tag-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10.5px;
+      font-weight: 700;
+      min-height: 14px;
+    }
+    .glass-widget.center-align .widget-tag-row { justify-content: center; }
+    .widget-tag {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .widget-flags {
+      font-size: 10.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      display: none;
+    }
+    .widget-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .widget-sub {
+      font-size: 11px;
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .widget-memo {
+      font-size: 10.5px;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      display: none;
+    }
+    .widget-dday {
+      font-size: 26px;
+      font-weight: 800;
+      margin-left: 10px;
+      white-space: nowrap;
+      letter-spacing: -0.4px;
+      line-height: 1.05;
+    }
+    .glass-widget.center-align .widget-dday {
+      order: -1;
+      margin-left: 0;
+    }
+    .progress-row {
+      margin-top: 6px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    .progress-track {
+      flex: 1;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2.5px;
+      overflow: hidden;
+    }
+    .progress-fill { height: 100%; border-radius: 2.5px; transition: width 0.2s; }
+    .progress-pct {
+      font-size: 10px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Context Menu & Edit Modal matching StickyWidgetWindow / EditDialogWindow */
+    .widget-ctx-menu {
+      position: fixed;
+      z-index: 1000;
+      min-width: 224px;
+      background: #ffffff;
+      border: 1px solid #cbd2d9;
+      border-radius: 9px;
+      padding: 5px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
+      display: none;
+      font-size: 12px;
+      color: #222730;
+    }
+    .ctx-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border: none;
+      background: transparent;
+      padding: 6px 9px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-family: inherit;
+      color: #222730;
+      cursor: pointer;
+      text-align: left;
+    }
+    .ctx-item:hover:not(:disabled) { background: #e7f5ff; color: #1971c2; }
+    .ctx-item:disabled { opacity: 0.45; cursor: not-allowed; }
+    .ctx-item-left { display: inline-flex; align-items: center; gap: 6px; }
+    .ctx-check { width: 12px; display: inline-block; font-weight: 800; color: #1971c2; text-align: center; }
+    .ctx-sep { height: 1px; background: #e2e8f0; margin: 4px 6px; }
+    .ctx-sub-list {
+      display: none;
+      padding: 2px 0 4px 18px;
+      border-left: 2px solid #e7f5ff;
+      margin: 2px 6px 2px 14px;
+    }
+    .ctx-sub-list.open { display: block; }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(2px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1100;
+      padding: 12px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-dialog {
+      width: min(450px, 100%);
+      max-height: 90vh;
+      background: rgba(255, 255, 255, 0.99);
+      border: 1.5px solid #cbd2d9;
+      border-radius: 14px;
+      box-shadow: 0 22px 54px rgba(15, 23, 42, 0.28);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: 'Malgun Gothic', 'Segoe UI', sans-serif;
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px 11px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .modal-header h3 { font-size: 16px; font-weight: 700; color: #181c24; margin: 0; }
+    .modal-close-btn {
+      width: 26px;
+      height: 26px;
+      border: none;
+      background: transparent;
+      color: #57606a;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .modal-close-btn:hover { background: #f1f5f9; }
+    .modal-body {
+      padding: 12px 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .modal-label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #4e5968;
+      margin-bottom: 4px;
+    }
+    .modal-input, .modal-select {
+      width: 100%;
+      height: 32px;
+      padding: 5px 10px;
+      font-size: 13px;
+      color: #181c24;
+      background: #ffffff;
+      border: 1px solid #cbd2d9;
+      border-radius: 6px;
+      font-family: inherit;
+      outline: none;
+    }
+    .modal-input:focus, .modal-select:focus { border-color: #339af0; }
+    .modal-quick-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .modal-quick-btn {
+      border: none;
+      background: #edf1f5;
+      color: #333d4b;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .modal-quick-btn:hover { background: #dce3eb; }
+    .modal-radio-col { display: flex; flex-direction: column; gap: 5px; font-size: 12px; color: #222730; }
+    .modal-wrap-row { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 11.5px; color: #222730; }
+    .modal-check-label { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+    .modal-repeat-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+    .modal-repeat-row span { font-size: 11.5px; color: #4e5968; white-space: nowrap; }
+    .modal-preview-box {
+      padding: 7px 10px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      border: 1px solid #dce3eb;
+      color: #334155;
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+    .modal-color-row { display: flex; align-items: center; gap: 8px; }
+    .modal-color-chip {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2.5px solid transparent;
+      opacity: 0.65;
+      cursor: pointer;
+      padding: 0;
+    }
+    .modal-color-chip.active {
+      opacity: 1;
+      border-color: #181c24;
+      box-shadow: 0 0 0 2px #fff inset;
+    }
+    .modal-footer {
+      padding: 12px 20px 16px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .modal-error { color: #e03131; font-size: 11.5px; font-weight: 600; display: none; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
+    .modal-btn {
+      min-width: 76px;
+      height: 32px;
+      padding: 0 14px;
+      border-radius: 8px;
+      border: none;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .modal-btn-cancel { background: #e9ecef; color: #333d4b; }
+    .modal-btn-cancel:hover { background: #dee2e6; }
+    .modal-btn-save { background: #339af0; color: #ffffff; }
+    .modal-btn-save:hover { background: #228be6; }
+
+    .section { padding: 52px 0; }
+    .section-title { text-align: center; font-size: 28px; font-weight: 800; margin-bottom: 34px; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .faq-grid { grid-template-columns: repeat(2, 1fr); }
+    .faq-card-full {
+      grid-column: 1 / -1;
+      border-color: #93c5fd;
+      background: #f8fbff;
+    }
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .compare-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+    }
+    .compare-card.highlight {
+      border: 2px solid var(--primary);
+      background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+      box-shadow: 0 12px 28px rgba(51, 154, 240, 0.12);
+    }
+    .compare-badge {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .compare-card.highlight .compare-badge {
+      background: #e7f5ff;
+      color: #1971c2;
+    }
+    .compare-list { list-style: none; margin-top: 12px; font-size: 13.5px; color: var(--muted); }
+    .compare-list li { margin-bottom: 7px; }
+    .compare-card.highlight .compare-list { color: var(--text); font-weight: 600; }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .feature-card h3 { font-size: 17px; margin-bottom: 8px; }
+    .feature-card p { color: var(--muted); font-size: 14px; }
+
+    .pricing-single {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .price-card {
+      background: var(--card);
+      border: 2px solid var(--primary);
+      box-shadow: 0 14px 34px rgba(51, 154, 240, 0.14);
+      border-radius: 20px;
+      padding: 32px;
+      text-align: left;
+    }
+    .price-badge {
+      display: inline-block;
+      background: #e7f5ff;
+      color: #1971c2;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .price-tag { font-size: 34px; font-weight: 900; margin: 8px 0 4px; }
+    .price-sub { color: var(--muted); font-size: 13.5px; margin-bottom: 16px; }
+    .price-list { list-style: none; margin: 18px 0 24px; }
+    .price-list li { margin-bottom: 9px; font-size: 14.5px; }
+    .buy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .showcase-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+    }
+    .showcase-card img {
+      width: 100%;
+      aspect-ratio: 5 / 3;
+      object-fit: cover;
+      display: block;
+      background: #0f172a;
+      border-bottom: 1px solid var(--border);
+    }
+    .showcase-body { padding: 16px 18px 18px; }
+    .showcase-body h3 { font-size: 15.5px; margin-bottom: 6px; }
+    .showcase-body p { color: var(--muted); font-size: 13.5px; }
+    footer {
+      padding: 36px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 860px) {
+      .hero, .features-grid, .faq-grid, .compare-grid, .showcase-grid, .buy-grid { grid-template-columns: 1fr; }
+      .demo-cta-bar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo"><span class="logo-badge">D-DAY</span> <span data-ko="IMOE_DDAY" data-en="IMOE_DDAY">IMOE_DDAY</span></div>
+      <div class="header-actions">
+        <button id="langToggleBtn" class="lang-btn" type="button">🌐 English</button>
+        <a href="#pricing" class="btn btn-primary" style="padding: 9px 18px; font-size: 13px;" data-ko="무료 다운로드" data-en="Free Download">무료 다운로드</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-intro">
+        <span class="pill-tag" data-ko="열어야 보이는 앱은 결국 잊혀집니다 · Windows 무설치 위젯" data-en="Out of Sight Means Out of Mind · Portable Glass Widget">열어야 보이는 앱은 결국 잊혀집니다 · Windows 무설치 위젯</span>
+        <h1 data-ko="잊고 있던 목표가<br />매일 눈앞에 선명해집니다" data-en="Stop Hiding Deadlines Inside Closed Tabs">잊고 있던 목표가<br />매일 눈앞에 선명해집니다</h1>
+        <p data-ko="메모·캘린더 앱은 창을 닫으면 잊고, 종이 포스트잇은 지저분합니다. 복잡한 관리 창 없이 <b>압축 풀고 5초 만에</b> 바탕화면에 띄우세요. 광고·구독·회원가입 없는 <b>100% 무료 포터블 위젯</b>입니다." data-en="Calendar &amp; todo apps get buried in tabs. Sticky notes clutter your screen. Pin crisp frosted-glass D-Day cards on your Windows desktop <b>in 5 seconds flat</b> — <b>100% free</b> with no dashboards, accounts, or subscriptions.">메모·캘린더 앱은 창을 닫으면 잊고, 종이 포스트잇은 지저분합니다. 복잡한 관리 창 없이 <b>압축 풀고 5초 만에</b> 바탕화면에 띄우세요. 광고·구독·회원가입 없는 <b>100% 무료 포터블 위젯</b>입니다.</p>
+        <div class="cta-row">
+          <a href="#pricing" class="btn btn-primary" data-ko="무료로 바탕화면에 띄우기 (ZIP) →" data-en="Free Download for Windows (ZIP) →">무료로 바탕화면에 띄우기 (ZIP) →</a>
+          <a href="#compare" class="btn btn-secondary" data-ko="왜 다른가요? (10초 비교)" data-en="Why IMOE_DDAY?">왜 다른가요? (10초 비교)</a>
+        </div>
+      </div>
+
+      <div class="demo-shell">
+        <div class="demo-toolbar">
+          <div class="demo-controls">
+            <button class="demo-chip active" data-theme="sky" type="button" data-ko="스카이 배경" data-en="Sky">스카이 배경</button>
+            <button class="demo-chip" data-theme="aurora" type="button" data-ko="오로라 배경" data-en="Aurora">오로라 배경</button>
+            <button class="demo-chip" data-theme="dark" type="button" data-ko="다크 배경" data-en="Dark">다크 배경</button>
+            <button class="demo-chip" data-theme="light" type="button" data-ko="밝은 배경" data-en="Light">밝은 배경</button>
+          </div>
+          <div class="demo-controls">
+            <button id="demoTextBtn" class="demo-chip" type="button" data-ko="글씨: 검정" data-en="Text: Black">글씨: 검정</button>
+            <button id="demoBlurBtn" class="demo-chip active" type="button" data-ko="블러 ON" data-en="Blur ON">블러 ON</button>
+            <label style="display:flex;align-items:center;gap:4px;font-weight:700;">
+              <span data-ko="투명도" data-en="Opacity">투명도</span>
+              <input id="demoOpacity" type="range" min="2" max="95" value="15" style="width:66px;" />
+            </label>
+          </div>
+        </div>
+
+        <div class="demo-customizer">
+          <input id="customTitle" class="demo-input demo-input-title" type="text" maxlength="60" value="기말고사" aria-label="내 D-Day 제목 입력" />
+          <input id="customDate" class="demo-input demo-input-date" type="date" aria-label="목표 날짜 선택" />
+          <button id="customMode" class="demo-chip active" type="button" data-ko="D-Day (목표일)" data-en="D-Day (Countdown)">D-Day (목표일)</button>
+          <div class="color-palette" aria-label="포인트 컬러 선택">
+            <button class="color-dot" type="button" data-color="#FF6B6B" style="background:#FF6B6B;" title="코랄 / Coral"></button>
+            <button class="color-dot active" type="button" data-color="#4DABF7" style="background:#4DABF7;" title="스카이 / Sky"></button>
+            <button class="color-dot" type="button" data-color="#51CF66" style="background:#51CF66;" title="민트 / Mint"></button>
+            <button class="color-dot" type="button" data-color="#AE3EC9" style="background:#AE3EC9;" title="퍼플 / Purple"></button>
+            <button class="color-dot" type="button" data-color="#FCC419" style="background:#FCC419;" title="골드 / Gold"></button>
+            <button class="color-dot" type="button" data-color="#FF922B" style="background:#FF922B;" title="오렌지 / Orange"></button>
+          </div>
+          <div class="size-group" aria-label="크기 프리셋">
+            <button class="size-btn" type="button" data-size="sm">S</button>
+            <button class="size-btn active" type="button" data-size="md">M</button>
+            <button class="size-btn" type="button" data-size="lg">L</button>
+          </div>
+          <button id="addWidgetBtn" class="add-widget-btn" type="button" data-ko="+ 위젯 추가" data-en="+ Add Widget">+ 위젯 추가</button>
+        </div>
+
+        <div id="demoCanvas" class="desktop-canvas theme-sky">
+          <div id="snapLineV" class="snap-line snap-v"></div>
+          <div id="snapLineH" class="snap-line snap-h"></div>
+          <div id="snapBadge" class="snap-badge">16px SNAP</div>
+
+          <div class="glass-widget selected demo-peek dark-text" id="widget1"
+            data-color="#4DABF7" data-size="md" data-width="280" data-height="150"
+            data-mode="dday" data-repeat="none"
+            data-title="기말고사" data-title-ko="기말고사" data-title-en="Finals Exam"
+            data-memo="" data-memo-ko="" data-memo-en=""
+            data-user-edited="0" data-dark-text="1" data-blur="0" data-locked="0" data-topmost="0" data-progress="0" data-center="0" data-opacity="15"
+            style="left: 32px; top: 32px; width: 280px; height: 150px;">
+            <div class="widget-accent" style="background: #4DABF7;"></div>
+            <div class="widget-body-wrap">
+              <div class="widget-content-grid">
+                <div class="widget-left-panel">
+                  <div class="widget-tag-row">
+                    <span class="widget-tag" style="color: #4DABF7;">카운트다운</span>
+                    <span class="widget-flags"></span>
+                  </div>
+                  <div class="widget-title">기말고사</div>
+                  <div class="widget-sub">2026.12.15 (화) · 31일 남음</div>
+                  <div class="widget-memo"></div>
+                </div>
+                <div class="widget-dday">D-31</div>
+              </div>
+              <div class="progress-row">
+                <div class="progress-track"><div class="progress-fill" style="width: 0%; background: #4DABF7;"></div></div>
+                <span class="progress-pct">0%</span>
+              </div>
+            </div>
+            <div class="widget-hover-bar">
+              <button type="button" data-action="add" title="새 D-Day 위젯 추가">+</button>
+              <button type="button" data-action="text" title="현재 검정 글씨 (클릭 시 하얀 글씨로 전환)" style="color:#E67700;">가</button>
+              <button type="button" data-action="topmost" title="항상 위에 고정 토글"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.8 2.2l4 4-1.3 1.3-1-.3-2.6 2.6.4 1.9-1.1 1.1-2.5-2.5L2.5 13.5l3.2-3.2L3.2 7.8l1.1-1.1 1.9.4L8.8 4.5l-.3-1z"/></svg></button>
+              <button type="button" data-action="lock" title="위치/크기 잠금 토글"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7" width="9" height="6.5" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 4.9-.7"/><circle cx="8" cy="10.2" r="0.8" fill="currentColor" stroke="none"/></svg></button>
+              <button type="button" data-action="style" title="투명도 및 크기 프리셋"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 2.5a5.5 5.5 0 0 0 0 11z" fill="currentColor"/></svg></button>
+              <button type="button" data-action="edit" title="일정 수정"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M11.3 2.5l2.2 2.2-7.6 7.6-2.9.7.7-2.9z"/><path d="M9.7 4.1l2.2 2.2"/></svg></button>
+              <button type="button" data-action="delete" title="위젯 삭제"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M4.2 4.2l7.6 7.6M11.8 4.2l-7.6 7.6"/></svg></button>
+            </div>
+            <div class="widget-mini-bar">
+              <input class="mini-opacity-slider" type="range" min="2" max="95" value="15" />
+              <span class="mini-opacity-val">15%</span>
+              <div class="mini-size-group">
+                <button type="button" class="mini-size-btn" data-mini-size="sm">소</button>
+                <button type="button" class="mini-size-btn active" data-mini-size="md">중</button>
+                <button type="button" class="mini-size-btn" data-mini-size="lg">대</button>
+              </div>
+            </div>
+            <div class="widget-resize-grip"></div>
+          </div>
+
+          <div class="glass-widget dark-text" id="widget2"
+            data-color="#51CF66" data-size="md" data-width="280" data-height="150"
+            data-mode="dplus" data-repeat="none"
+            data-title="매일 30분 운동 챌린지" data-title-ko="매일 30분 운동 챌린지" data-title-en="30-Min Workout Habit"
+            data-memo="퇴근 후 스트레칭 &amp; 러닝" data-memo-ko="퇴근 후 스트레칭 &amp; 러닝" data-memo-en="Evening run &amp; stretch"
+            data-user-edited="0" data-dark-text="1" data-blur="1" data-locked="0" data-topmost="0" data-progress="1" data-center="0" data-opacity="18"
+            style="left: 328px; top: 32px; width: 280px; height: 150px;">
+            <div class="widget-accent" style="background: #51CF66;"></div>
+            <div class="widget-body-wrap">
+              <div class="widget-content-grid">
+                <div class="widget-left-panel">
+                  <div class="widget-tag-row">
+                    <span class="widget-tag" style="color: #51CF66;">1일 기준</span>
+                    <span class="widget-flags">💧</span>
+                  </div>
+                  <div class="widget-title">매일 30분 운동 챌린지</div>
+                  <div class="widget-sub">2026.10.01 (목) · 시작 45일째</div>
+                  <div class="widget-memo" style="display:block;">퇴근 후 스트레칭 &amp; 러닝</div>
+                </div>
+                <div class="widget-dday">D+45</div>
+              </div>
+              <div class="progress-row" style="display:flex;">
+                <div class="progress-track"><div class="progress-fill" style="width: 45%; background: #51CF66;"></div></div>
+                <span class="progress-pct">45%</span>
+              </div>
+            </div>
+            <div class="widget-resize-grip"></div>
+          </div>
+
+          <div id="desktopHint" class="desktop-hint" data-ko="💡 위젯에 마우스를 올리면 [+ 가 📌 🔓 ◐ ✎ ✕] 툴바 표시 · 더블클릭/우클릭/모서리 크기 조절 가능" data-en="💡 Hover card for [+ A 📌 🔓 ◐ ✎ ✕] toolbar · Double-click, right-click, or drag corner to resize">💡 위젯에 마우스를 올리면 [+ 가 📌 🔓 ◐ ✎ ✕] 툴바 표시 · 더블클릭/우클릭/모서리 크기 조절 가능</div>
+        </div>
+
+        <div class="demo-cta-bar">
+          <span data-ko="✨ 방금 만든 유리 위젯 그대로, 내 PC 바탕화면에 5초 만에 띄워두세요" data-en="✨ Put the exact same frosted glass widgets on your Windows desktop in 5 seconds">✨ 방금 만든 유리 위젯 그대로, 내 PC 바탕화면에 5초 만에 띄워두세요</span>
+          <a href="#pricing" class="demo-cta-link" data-ko="무료 다운로드 (ZIP) →" data-en="Free Download (ZIP) →">무료 다운로드 (ZIP) →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="compare" class="section" style="padding-top: 16px; padding-bottom: 24px;">
+      <h2 class="section-title" data-ko="왜 기존 방법 대신 'IMOE_DDAY'인가요?" data-en="Why IMOE_DDAY Beats Free Clutter &amp; Tabs">왜 기존 방법 대신 'IMOE_DDAY'인가요?</h2>
+      <div class="compare-grid">
+        <div class="compare-card">
+          <span class="compare-badge" data-ko="메모 · 캘린더 앱" data-en="Calendar &amp; Todo Apps">메모 · 캘린더 앱</span>
+          <h3 data-ko="창을 닫으면 머릿속에서도 끝" data-en="Invisible Once You Close the Tab">창을 닫으면 머릿속에서도 끝</h3>
+          <ul class="compare-list">
+            <li data-ko="• 일부러 앱을 켜야만 남은 날짜가 보임" data-en="• Requires opening the app every time">• 일부러 앱을 켜야만 남은 날짜가 보임</li>
+            <li data-ko="• 바쁜 업무·인강 중에는 존재를 잊어버림" data-en="• Easy to ignore during busy workdays">• 바쁜 업무·인강 중에는 존재를 잊어버림</li>
+            <li data-ko="• 로그인/동기화 기다리다 흐지부지됨" data-en="• Heavy tabs &amp; account clutter">• 로그인/동기화 기다리다 흐지부지됨</li>
+          </ul>
+        </div>
+        <div class="compare-card">
+          <span class="compare-badge" data-ko="기존 위젯 · 종이 포스트잇" data-en="Other Widgets / Sticky Notes">기존 위젯 · 종이 포스트잇</span>
+          <h3 data-ko="30분 세팅 삽질 · 투박한 화면" data-en="30-Min Setup Waste · Ugly Boxes">30분 세팅 삽질 · 투박한 화면</h3>
+          <ul class="compare-list">
+            <li data-ko="• 광고 피하고 스킨 찾느라 아까운 시간 낭비" data-en="• Wasted weekends configuring broken skins">• 광고 피하고 스킨 찾느라 아까운 시간 낭비</li>
+            <li data-ko="• 시커먼 네모 박스가 예쁜 배경화면을 가림" data-en="• Opaque boxes ruin clean wallpapers">• 시커먼 네모 박스가 예쁜 배경화면을 가림</li>
+            <li data-ko="• 밝은 배경으로 바꾸면 글씨가 안 보임" data-en="• Unreadable text on bright wallpapers">• 밝은 배경으로 바꾸면 글씨가 안 보임</li>
+          </ul>
+        </div>
+        <div class="compare-card highlight">
+          <span class="compare-badge" data-ko="IMOE_DDAY v1.0" data-en="IMOE_DDAY v1.0">IMOE_DDAY v1.0</span>
+          <h3 data-ko="5초 만에 끝내는 진짜 유리 위젯" data-en="5-Second Native Frosted Glass">5초 만에 끝내는 진짜 유리 위젯</h3>
+          <ul class="compare-list">
+            <li data-ko="✓ 압축 풀고 더블클릭 5초 컷 (무설치·무로그인)" data-en="✓ Extract &amp; run in 5 sec (No install or login)">✓ 압축 풀고 더블클릭 5초 컷 (무설치·무로그인)</li>
+            <li data-ko="✓ 마우스 치우면 버튼이 사라지는 진짜 유리 블러" data-en="✓ Pure glass cards; buttons hide until hover">✓ 마우스 치우면 버튼이 사라지는 진짜 유리 블러</li>
+            <li data-ko="✓ 16px 자석 스냅 · 흰/검 글씨 1초 전환 (100% 무료)" data-en="✓ 16px magnetic snap · White/Dark toggle (100% Free)">✓ 16px 자석 스냅 · 흰/검 글씨 1초 전환 (100% 무료)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="showcase" class="section">
+      <h2 class="section-title" data-ko="3초 만에 보는 실제 위젯 동작" data-en="See IMOE_DDAY in Action">3초 만에 보는 실제 위젯 동작</h2>
+      <div class="showcase-grid">
+        <div class="showcase-card">
+          <img src="assets/demo-1-glass-blur.gif" data-src-ko="assets/demo-1-glass-blur.gif" data-src-en="assets/demo-en-1-glass-blur.gif" alt="글래스 블러 및 투명도·글씨색 전환 시연" loading="lazy" />
+          <div class="showcase-body">
+            <h3 data-ko="유리 블러 &amp; 흰/검 글씨 전환" data-en="Frosted Blur &amp; Light/Dark Text">유리 블러 &amp; 흰/검 글씨 전환</h3>
+            <p data-ko="어두운 배경부터 밝은 배경화면까지 클릭 한 번으로 선명하게 맞춥니다." data-en="Switch between white and black typography with live frosted blur for any wallpaper.">어두운 배경부터 밝은 배경화면까지 클릭 한 번으로 선명하게 맞춥니다.</p>
+          </div>
+        </div>
+        <div class="showcase-card">
+          <img src="assets/demo-2-magnetic-snap.gif" data-src-ko="assets/demo-2-magnetic-snap.gif" data-src-en="assets/demo-en-2-magnetic-snap.gif" alt="자석 스냅 정렬 및 위치 잠금 시연" loading="lazy" />
+          <div class="showcase-body">
+            <h3 data-ko="16px 자석 스냅 &amp; 위치 잠금" data-en="Magnetic Snap &amp; Position Lock">16px 자석 스냅 &amp; 위치 잠금</h3>
+            <p data-ko="화면 가장자리와 인접 위젯에 자석처럼 맞물려 정렬하고 잠금으로 고정합니다." data-en="Snap neatly to edges or adjacent cards and lock position/size with one click.">화면 가장자리와 인접 위젯에 자석처럼 맞물려 정렬하고 잠금으로 고정합니다.</p>
+          </div>
+        </div>
+        <div class="showcase-card">
+          <img src="assets/demo-3-quick-add.gif" data-src-ko="assets/demo-3-quick-add.gif" data-src-en="assets/demo-en-3-quick-add.gif" alt="새 D-Day 빠른 추가 시연" loading="lazy" />
+          <div class="showcase-body">
+            <h3 data-ko="관리 창 없이 5초 D-Day 추가" data-en="Instant 5-Second Quick Add">관리 창 없이 5초 D-Day 추가</h3>
+            <p data-ko="위젯 [+] 버튼으로 바로 일정을 입력해 즉시 바탕화면에 띄웁니다." data-en="Press [+] on any card to create a widget cleanly without bloated dashboards.">위젯 [+] 버튼으로 바로 일정을 입력해 즉시 바탕화면에 띄웁니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <h2 class="section-title" data-ko="왜 IMOE_DDAY인가요?" data-en="Why IMOE_DDAY?">왜 IMOE_DDAY인가요?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3 data-ko="✨ 진짜 유리 글래스 & 블러" data-en="✨ Native Frosted Glass & Blur">✨ 진짜 유리 글래스 & 블러</h3>
+          <p data-ko="테두리 없는 투명 카드에 상단 컬러 바만 남겼습니다. Windows 유리 블러 효과와 흰색/검정 글씨 전환으로 어떤 배경화면에도 완벽히 어울립니다." data-en="Frameless transparent cards with a crisp top accent bar. Native Windows blur and one-click white/black text fit any wallpaper.">테두리 없는 투명 카드에 상단 컬러 바만 남겼습니다. Windows 유리 블러 효과와 흰색/검정 글씨 전환으로 어떤 배경화면에도 완벽히 어울립니다.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-ko="🧲 자석 스냅 & 자유 리사이즈" data-en="🧲 Magnetic Snap & Free Resize">🧲 자석 스냅 & 자유 리사이즈</h3>
+          <p data-ko="마우스를 올릴 때만 조작 버튼이 나타나고, 드래그하면 화면 가장자리와 다른 위젯에 딱 맞게 자석처럼 줄 맞춰 정렬됩니다." data-en="Controls stay hidden until hover. Drag widgets to snap cleanly to screen edges and neighboring cards.">마우스를 올릴 때만 조작 버튼이 나타나고, 드래그하면 화면 가장자리와 다른 위젯에 딱 맞게 자석처럼 줄 맞춰 정렬됩니다.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-ko="📌 위치/크기 잠금 & 항상 위에" data-en="📌 Lock & Always on Top">📌 위치/크기 잠금 & 항상 위에</h3>
+          <p data-ko="잠금 버튼 한 번으로 실수로 위치나 크기가 바뀌지 않게 고정하고, 필요할 땐 항상 위(Topmost)에 띄우거나 바탕화면에 자연스럽게 두세요." data-en="Lock position and size with one click so your layout stays untouched, and toggle Always on Top whenever you need.">잠금 버튼 한 번으로 실수로 위치나 크기가 바뀌지 않게 고정하고, 필요에 따라 항상 위(Topmost)에 띄우거나 바탕화면에 자연스럽게 두세요.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-ko="🔁 매년·매월·매주 반복" data-en="🔁 Yearly / Monthly / Weekly Repeat">🔁 매년·매월·매주 반복</h3>
+          <p data-ko="생일, 기념일, 월급날, 결제일을 한 번 등록하면 지나간 뒤에도 자동으로 다음 주기의 D-Day를 계산해 줍니다." data-en="Set birthdays, paydays, or bills once — automatically rolls over to the next cycle.">생일, 기념일, 월급날, 결제일을 한 번 등록하면 지나간 뒤에도 자동으로 다음 주기의 D-Day를 계산해 줍니다.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-ko="📊 목표 진행률 바 & 6종 컬러" data-en="📊 Goal Progress Bar & Clean Palette">📊 목표 진행률 바 & 6종 컬러</h3>
+          <p data-ko="시작일부터 목표일까지 남은 진행률(%)을 바 형태로 한눈에 확인하고, 엄선된 6가지 컬러와 소/중/대 프리셋으로 꾸며보세요." data-en="Track completion visually with goal progress bars, 6 curated accent colors, and instant S/M/L size presets.">시작일부터 목표일까지 남은 진행률(%)을 바 형태로 한눈에 확인하고, 엄선된 6가지 컬러와 소/중/대 프리셋으로 꾸며보세요.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-ko="⚡ 무관리 창 · 한/영 독립 에디션" data-en="⚡ Clean Design · KO / EN Editions">⚡ 무관리 창 · 한/영 독립 에디션</h3>
+          <p data-ko="복잡한 통합관리 창 없이 트레이와 위젯으로만 깔끔하게 작동합니다. 언제든 바로 실행해 바탕화면에 자연스럽게 고정하세요." data-en="No cluttered manager window — just desktop widgets and a simple 3-item tray menu. Ready to run anytime as a clean portable app.">복잡한 통합관리 창 없이 트레이와 위젯으로만 깔끔하게 작동합니다. 언제든 바로 실행해 바탕화면에 자연스럽게 고정하세요.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <h2 class="section-title" data-ko="설치 없이 5초 만에 무료 다운로드" data-en="Free Download — Ready in 5 Seconds">설치 없이 5초 만에 무료 다운로드</h2>
+      <div class="pricing-single">
+        <div class="price-card">
+          <span class="price-badge" data-ko="100% FREE · BY IMOE" data-en="100% FREE · BY IMOE">100% FREE · BY IMOE</span>
+          <h3 data-ko="IMOE_DDAY v1.0 (한국어 전용 빌드)" data-en="IMOE_DDAY v1.0 (English Edition)">IMOE_DDAY v1.0 (한국어 전용 빌드)</h3>
+          <div class="price-tag" data-ko="무료 (FREE)" data-en="FREE ($0)">무료 (FREE)</div>
+          <div class="price-sub" data-ko="회원가입·구독·광고 없이 누구나 평생 무료로 사용하세요 (실행파일: IMOE_DDAY.exe)" data-en="100% free forever with zero accounts, subscriptions, or ads (Executable: IMOE_DDAY.exe)">회원가입·구독·광고 없이 누구나 평생 무료로 사용하세요 (실행파일: IMOE_DDAY.exe)</div>
+          <ul class="price-list">
+            <li data-ko="✓ 통합관리 창 없는 깔끔한 위젯 전용 구조 (단일 EXE)" data-en="✓ Clean widget-only design (Single portable EXE)">✓ 통합관리 창 없는 깔끔한 위젯 전용 구조 (단일 EXE)</li>
+            <li data-ko="✓ 카운트다운(D-Day) &amp; 1일 기준(D+1) · 매년/매월/매주 반복" data-en="✓ Countdown &amp; Day-1 Count · Yearly / Monthly / Weekly cycles">✓ 카운트다운(D-Day) &amp; 1일 기준(D+1) · 매년/매월/매주 반복</li>
+            <li data-ko="✓ Windows 유리 블러, 투명도 조절, 흰색/검정 글씨 전환" data-en="✓ Frosted Blur, live opacity slider, white/black text toggle">✓ Windows 유리 블러, 투명도 조절, 흰색/검정 글씨 전환</li>
+            <li data-ko="✓ 자석 스냅 정렬, 다중 모니터 위치 기억, 위치/크기 잠금" data-en="✓ Magnetic snap, multi-monitor recall, position &amp; size lock">✓ 자석 스냅 정렬, 다중 모니터 위치 기억, 위치/크기 잠금</li>
+            <li data-ko="✓ 한국어판(KO) / 영문판(EN) 독립 빌드 제공 (IMOE_DDAY.exe)" data-en="✓ Dedicated English (EN) &amp; Korean (KO) builds (IMOE_DDAY.exe)">✓ 한국어판(KO) / 영문판(EN) 독립 빌드 제공 (IMOE_DDAY.exe)</li>
+          </ul>
+          <div class="buy-grid">
+            <a id="buyPrimaryBtn" href="#pricing" class="btn btn-primary" style="text-align:center;" data-ko="한국어판 무료 다운로드 (.ZIP)" data-en="Download English Edition (.ZIP)">한국어판 무료 다운로드 (.ZIP)</a>
+            <a id="buySecondaryBtn" href="#pricing" class="btn btn-secondary" style="text-align:center;" data-ko="영문판 무료 다운로드 (EN .ZIP)" data-en="Download Korean Edition (KO .ZIP)">영문판 무료 다운로드 (EN .ZIP)</a>
+          </div>
+          <p id="buyStatusNote" style="display:none;margin-top:12px;font-size:12.5px;color:#1971c2;background:#e7f5ff;padding:8px 12px;border-radius:8px;"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 12px;">
+      <h2 class="section-title" data-ko="자주 묻는 질문" data-en="FAQ">자주 묻는 질문</h2>
+      <div class="features-grid faq-grid">
+        <div class="feature-card">
+          <h3 data-ko="별도 설치나 런타임이 필요한가요?" data-en="Any extra installation required?">별도 설치나 런타임이 필요한가요?</h3>
+          <p data-ko="아니요. 별도의 복잡한 설치 과정이나 추가 런타임 없이 압축만 풀면 Windows 10/11에서 즉시 실행됩니다." data-en="No. It runs natively on Windows 10/11 — just unzip and run the executable immediately.">아니요. 별도의 복잡한 설치 과정이나 추가 런타임 없이 압축만 풀면 Windows 10/11에서 즉시 실행됩니다.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-ko="일정 데이터는 안전하게 보관되나요?" data-en="Is my data safe and portable?">일정 데이터는 안전하게 보관되나요?</h3>
+          <p data-ko="실행 파일 옆 로컬 JSON(dday-data.json)에 저장되며 직전 자동 백업(.bak)과 손상 복구 기능을 내장했습니다. 서버 전송은 0%입니다." data-en="Everything stays offline in a local JSON file with automatic .bak backup and corruption recovery. Zero telemetry.">실행 파일 옆 로컬 JSON(dday-data.json)에 저장되며 직전 자동 백업(.bak)과 손상 복구 기능을 내장했습니다. 서버 전송은 0%입니다.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-ko="구독이나 라이선스 키 제한이 있나요?" data-en="Any subscription or license keys?">구독이나 라이선스 키 제한이 있나요?</h3>
+          <p data-ko="없습니다. 100% 무료 프리웨어로 추가 결제·인증 키 입력 없이 영구 사용 가능하며 새 PC로 폴더만 옮겨 그대로 쓸 수 있습니다." data-en="None. 100% freeware with zero subscriptions or activation keys — copy the folder to move PCs.">없습니다. 100% 무료 프리웨어로 추가 결제·인증 키 입력 없이 영구 사용 가능하며 새 PC로 폴더만 옮겨 그대로 쓸 수 있습니다.</p>
+        </div>
+        <div class="feature-card">
+          <h3 data-ko="완전 무료인가요? 문의처는 어디인가요?" data-en="Is it really 100% free? &amp; Support contact?">완전 무료인가요? 문의처는 어디인가요?</h3>
+          <p data-ko="네, 광고·구독·기능 제한이 전혀 없는 100% 무료 앱입니다(IMOE 배포). 오류 제보 및 문의: jeondusan@gmail.com" data-en="Yes, it is 100% freeware by IMOE with zero ads, subscriptions, or locked features. Bug reports &amp; inquiries: jeondusan@gmail.com">네, 광고·구독·기능 제한이 전혀 없는 100% 무료 앱입니다(IMOE 배포). 오류 제보 및 문의: jeondusan@gmail.com</p>
+        </div>
+        <div class="feature-card faq-card-full">
+          <h3 data-ko="무료 앱 안전성과 처음 실행 시 윈도우 보호 창(SmartScreen)이 뜨면?" data-en="Why is it free? / Windows SmartScreen prompt?">무료 앱 안전성과 처음 실행 시 윈도우 보호 창(SmartScreen)이 뜨면?</h3>
+          <p data-ko="연간 수백만 원의 기업용 인증서·서버 유지비 없이 가볍게 배포하는 100% 오프라인 무료 앱입니다. IMOE_DDAY.exe 첫 실행 시 파란 안내 창이 뜨면 [추가 정보] → [실행]을 한 번만 눌러주세요. 인터넷 전송은 0%입니다." data-en="IMOE_DDAY is a lightweight 100% offline freeware without expensive code-signing subscriptions or cloud servers. On first launch of IMOE_DDAY.exe, click [More info] → [Run anyway]. Zero telemetry.">연간 수백만 원의 기업용 인증서·서버 유지비 없이 가볍게 배포하는 100% 오프라인 무료 앱입니다. IMOE_DDAY.exe 첫 실행 시 파란 안내 창이 뜨면 [추가 정보] → [실행]을 한 번만 눌러주세요. 인터넷 전송은 0%입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span data-ko="IMOE_DDAY v1.0 · Windows 10 / 11 바탕화면 글래스 D-Day 위젯" data-en="IMOE_DDAY v1.0 · Windows 10 / 11 Glass Desktop D-Day Widget">IMOE_DDAY v1.0 · Windows 10 / 11 바탕화면 글래스 D-Day 위젯</span>
+      <div style="margin-top: 8px; font-size: 12.5px;">
+        <span data-ko="문의 및 기술 지원: " data-en="Support &amp; Inquiries: ">문의 및 기술 지원: </span><a href="mailto:jeondusan@gmail.com" style="color: inherit; text-decoration: underline;">jeondusan@gmail.com</a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="widgetCtxMenu" class="widget-ctx-menu" role="menu">
+    <button type="button" class="ctx-item" data-ctx="add"><span class="ctx-item-left" data-ko="+ 새 D-Day 위젯 추가" data-en="+ Add New D-Day Widget">+ 새 D-Day 위젯 추가</span></button>
+    <button type="button" class="ctx-item" data-ctx="edit"><span class="ctx-item-left" data-ko="✎ 일정 및 스타일 수정..." data-en="✎ Edit Event &amp; Style...">✎ 일정 및 스타일 수정...</span></button>
+    <button type="button" class="ctx-item" data-ctx="size-toggle" id="ctxSizeToggle"><span class="ctx-item-left" data-ko="위젯 크기 프리셋" data-en="Widget Size Presets">위젯 크기 프리셋</span><span>▸</span></button>
+    <div id="ctxSizeSub" class="ctx-sub-list">
+      <button type="button" class="ctx-item" data-ctx-size="sm" data-ko="소 (220×125)" data-en="Small (220×125)">소 (220×125)</button>
+      <button type="button" class="ctx-item" data-ctx-size="md" data-ko="중 (280×150)" data-en="Medium (280×150)">중 (280×150)</button>
+      <button type="button" class="ctx-item" data-ctx-size="lg" data-ko="대 (350×190)" data-en="Large (350×190)">대 (350×190)</button>
+    </div>
+    <div class="ctx-sep"></div>
+    <button type="button" class="ctx-item" data-ctx="text"><span class="ctx-item-left"><span class="ctx-check" id="ctxChkText"></span><span data-ko="검정색 글씨 사용 (밝은 배경용)" data-en="Use Dark Text (for bright wallpapers)">검정색 글씨 사용 (밝은 배경용)</span></span></button>
+    <button type="button" class="ctx-item" data-ctx="blur"><span class="ctx-item-left"><span class="ctx-check" id="ctxChkBlur"></span><span data-ko="유리 블러 효과 (Blur)" data-en="Frosted Glass Blur">유리 블러 효과 (Blur)</span></span></button>
+    <button type="button" class="ctx-item" data-ctx="progress"><span class="ctx-item-left"><span class="ctx-check" id="ctxChkProgress"></span><span data-ko="목표 진행률 바 표시" data-en="Show Progress Bar">목표 진행률 바 표시</span></span></button>
+    <button type="button" class="ctx-item" data-ctx="center"><span class="ctx-item-left"><span class="ctx-check" id="ctxChkCenter"></span><span data-ko="가운데 정렬 레이아웃" data-en="Center-Aligned Layout">가운데 정렬 레이아웃</span></span></button>
+    <div class="ctx-sep"></div>
+    <button type="button" class="ctx-item" data-ctx="topmost"><span class="ctx-item-left"><span class="ctx-check" id="ctxChkTopmost"></span><span data-ko="항상 위에 표시 (Topmost)" data-en="Always on Top">항상 위에 표시 (Topmost)</span></span></button>
+    <button type="button" class="ctx-item" data-ctx="lock"><span class="ctx-item-left"><span class="ctx-check" id="ctxChkLock"></span><span data-ko="위치 및 크기 잠금" data-en="Lock Position &amp; Size">위치 및 크기 잠금</span></span></button>
+    <div class="ctx-sep"></div>
+    <button type="button" class="ctx-item" data-ctx="delete"><span class="ctx-item-left" data-ko="✕ 위젯 삭제" data-en="✕ Delete Widget">✕ 위젯 삭제</span></button>
+  </div>
+
+  <div id="widgetModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalHeaderTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modalHeaderTitle">D-Day 위젯 수정</h3>
+        <button type="button" id="modalCloseBtn" class="modal-close-btn" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <label class="modal-label" for="modalTitle" data-ko="일정 제목" data-en="Title">일정 제목</label>
+          <input id="modalTitle" class="modal-input" type="text" maxlength="60" />
+        </div>
+        <div>
+          <label class="modal-label" for="modalDate" data-ko="목표 / 시작 날짜" data-en="Target / Start Date">목표 / 시작 날짜</label>
+          <input id="modalDate" class="modal-input" type="date" />
+          <div class="modal-quick-row">
+            <button type="button" class="modal-quick-btn" data-quick-days="0" data-ko="오늘" data-en="Today">오늘</button>
+            <button type="button" class="modal-quick-btn" data-quick-days="7" data-ko="+7일" data-en="+7d">+7일</button>
+            <button type="button" class="modal-quick-btn" data-quick-days="30" data-ko="+30일" data-en="+30d">+30일</button>
+            <button type="button" class="modal-quick-btn" data-quick-days="100" data-ko="+100일" data-en="+100d">+100일</button>
+            <button type="button" class="modal-quick-btn" data-quick-days="yearend" data-ko="연말" data-en="Year-End">연말</button>
+          </div>
+        </div>
+        <div>
+          <span class="modal-label" data-ko="계산 방식 및 반복" data-en="Calculation Mode &amp; Repeat">계산 방식 및 반복</span>
+          <div class="modal-radio-col">
+            <label class="modal-check-label">
+              <input type="radio" name="modalMode" value="dday" checked />
+              <span data-ko="D-Day 카운트다운 (목표일까지 D-N / 당일 D-Day / 이후 D+N)" data-en="Countdown (D-N before / D-Day / D+N after)">D-Day 카운트다운 (목표일까지 D-N / 당일 D-Day / 이후 D+N)</span>
+            </label>
+            <label class="modal-check-label">
+              <input type="radio" name="modalMode" value="dplus" />
+              <span data-ko="시작일로부터 1일 기준 (당일 D+1 / 기념일·습관)" data-en="Day Count from Start Date (starts at D+1 / habits &amp; anniversaries)">시작일로부터 1일 기준 (당일 D+1 / 기념일·습관)</span>
+            </label>
+          </div>
+          <div class="modal-repeat-row">
+            <span data-ko="반복 주기:" data-en="Repeat Cycle:">반복 주기:</span>
+            <select id="modalRepeat" class="modal-select">
+              <option value="none" data-ko="반복 없음" data-en="No Repeat">반복 없음</option>
+              <option value="yearly" data-ko="매년 반복 (생일·기념일)" data-en="Yearly (Birthdays &amp; Anniversaries)">매년 반복 (생일·기념일)</option>
+              <option value="monthly" data-ko="매월 반복 (월급·결제일)" data-en="Monthly (Payday &amp; Bills)">매월 반복 (월급·결제일)</option>
+              <option value="weekly" data-ko="매주 반복" data-en="Weekly">매주 반복</option>
+            </select>
+          </div>
+        </div>
+        <div id="modalPreview" class="modal-preview-box">미리보기: [D-31] 2026.12.15 (화) · 31일 남음</div>
+        <div>
+          <span class="modal-label" data-ko="상단 포인트 컬러" data-en="Accent Color">상단 포인트 컬러</span>
+          <div id="modalColorPalette" class="modal-color-row">
+            <button type="button" class="modal-color-chip" data-modal-color="#FF6B6B" style="background:#FF6B6B;" title="코랄 / Coral"></button>
+            <button type="button" class="modal-color-chip" data-modal-color="#4DABF7" style="background:#4DABF7;" title="스카이 / Sky"></button>
+            <button type="button" class="modal-color-chip" data-modal-color="#51CF66" style="background:#51CF66;" title="민트 / Mint"></button>
+            <button type="button" class="modal-color-chip" data-modal-color="#AE3EC9" style="background:#AE3EC9;" title="퍼플 / Purple"></button>
+            <button type="button" class="modal-color-chip" data-modal-color="#FCC419" style="background:#FCC419;" title="골드 / Gold"></button>
+            <button type="button" class="modal-color-chip" data-modal-color="#FF922B" style="background:#FF922B;" title="오렌지 / Orange"></button>
+          </div>
+        </div>
+        <div>
+          <label class="modal-label" for="modalMemo" data-ko="메모 (선택)" data-en="Memo (Optional)">메모 (선택)</label>
+          <input id="modalMemo" class="modal-input" type="text" maxlength="80" />
+        </div>
+        <div>
+          <span class="modal-label" data-ko="위젯 크기 프리셋" data-en="Widget Size Preset">위젯 크기 프리셋</span>
+          <div class="modal-wrap-row">
+            <label class="modal-check-label" id="modalSizeKeepWrap">
+              <input type="radio" name="modalSize" value="keep" checked />
+              <span data-ko="현재 크기 유지" data-en="Keep Current">현재 크기 유지</span>
+            </label>
+            <label class="modal-check-label">
+              <input type="radio" name="modalSize" value="sm" />
+              <span data-ko="소 (220×125)" data-en="Small (220×125)">소 (220×125)</span>
+            </label>
+            <label class="modal-check-label">
+              <input type="radio" name="modalSize" value="md" />
+              <span data-ko="중 (280×150)" data-en="Medium (280×150)">중 (280×150)</span>
+            </label>
+            <label class="modal-check-label">
+              <input type="radio" name="modalSize" value="lg" />
+              <span data-ko="대 (350×190)" data-en="Large (350×190)">대 (350×190)</span>
+            </label>
+          </div>
+        </div>
+        <div>
+          <span class="modal-label" data-ko="글씨 색상" data-en="Text Color">글씨 색상</span>
+          <div class="modal-wrap-row">
+            <label class="modal-check-label">
+              <input type="radio" name="modalTextColor" value="white" />
+              <span data-ko="하얀색 글씨 (어두운 배경용)" data-en="White Text (Dark wallpaper)">하얀색 글씨 (어두운 배경용)</span>
+            </label>
+            <label class="modal-check-label">
+              <input type="radio" name="modalTextColor" value="black" />
+              <span data-ko="검정색 글씨 (밝은 배경용)" data-en="Black Text (Light wallpaper)">검정색 글씨 (밝은 배경용)</span>
+            </label>
+          </div>
+        </div>
+        <div>
+          <span class="modal-label" data-ko="스타일 및 동작 옵션" data-en="Style &amp; Behavior Options">스타일 및 동작 옵션</span>
+          <div class="modal-wrap-row">
+            <label class="modal-check-label"><input type="checkbox" id="modalProgress" /><span data-ko="목표 진행률 바 표시" data-en="Show Progress Bar">목표 진행률 바 표시</span></label>
+            <label class="modal-check-label"><input type="checkbox" id="modalBlur" /><span data-ko="유리 블러 효과 (Blur)" data-en="Frosted Glass Blur">유리 블러 효과 (Blur)</span></label>
+            <label class="modal-check-label"><input type="checkbox" id="modalCenter" /><span data-ko="가운데 정렬 레이아웃" data-en="Center-Aligned Layout">가운데 정렬 레이아웃</span></label>
+            <label class="modal-check-label" style="width:100%;"><input type="checkbox" id="modalTopmost" /><span data-ko="다른 창 위에 항상 표시 (해제 시 바탕화면 고정)" data-en="Always on Top (uncheck to pin on desktop)">다른 창 위에 항상 표시 (해제 시 바탕화면 고정)</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div id="modalError" class="modal-error"></div>
+        <div class="modal-actions">
+          <button type="button" id="modalCancelBtn" class="modal-btn modal-btn-cancel" data-ko="취소" data-en="Cancel">취소</button>
+          <button type="button" id="modalSaveBtn" class="modal-btn modal-btn-save" data-ko="저장" data-en="Save">저장</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // 무료 배포용 다운로드 경로 및 스토어 URL 설정
+      var STORE_URLS = {
+        koDirect: 'downloads/IMOE_DDAY-v1.0-KO.zip', // 한국어판 무료 직접 다운로드 (.ZIP)
+        msStore: '',  // Microsoft Store URL (선택)
+        gumroad: 'downloads/IMOE_DDAY-v1.0-EN.zip'   // 영문판 무료 직접 다운로드 (.ZIP)
+      };
+
+      var SIZE_PRESETS = {
+        sm: { w: 220, h: 125 },
+        md: { w: 280, h: 150 },
+        lg: { w: 350, h: 190 }
+      };
+
+      var NEW_PRESETS = [
+        { titleKo: '도쿄 자유여행', titleEn: 'Tokyo Trip', color: '#AE3EC9', offset: 21, left: 624, top: 32, memoKo: '항공권 체크인 완료', memoEn: 'Flight check-in ready' },
+        { titleKo: '프로젝트 런칭', titleEn: 'Product Launch', color: '#4DABF7', offset: 12, left: 32, top: 204, memoKo: '최종 QA 점검', memoEn: 'Final QA checklist' },
+        { titleKo: '결혼기념일', titleEn: 'Anniversary', color: '#FCC419', offset: 30, left: 328, top: 204, memoKo: '레스토랑 예약', memoEn: 'Dinner reservation' },
+        { titleKo: '신년 목표', titleEn: 'New Year Goal', color: '#FF922B', offset: 60, left: 624, top: 204, memoKo: '하루 30분 독서', memoEn: 'Read 30 mins daily' }
+      ];
+
+      var ICON_PIN = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.8 2.2l4 4-1.3 1.3-1-.3-2.6 2.6.4 1.9-1.1 1.1-2.5-2.5L2.5 13.5l3.2-3.2L3.2 7.8l1.1-1.1 1.9.4L8.8 4.5l-.3-1z"/></svg>';
+      var ICON_UNLOCK = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7" width="9" height="6.5" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 4.9-.7"/><circle cx="8" cy="10.2" r="0.8" fill="currentColor" stroke="none"/></svg>';
+      var ICON_LOCK = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7" width="9" height="6.5" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/><circle cx="8" cy="10.2" r="0.8" fill="currentColor" stroke="none"/></svg>';
+      var ICON_STYLE = '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 2.5a5.5 5.5 0 0 0 0 11z" fill="currentColor"/></svg>';
+      var ICON_EDIT = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M11.3 2.5l2.2 2.2-7.6 7.6-2.9.7.7-2.9z"/><path d="M9.7 4.1l2.2 2.2"/></svg>';
+      var ICON_DEL = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M4.2 4.2l7.6 7.6M11.8 4.2l-7.6 7.6"/></svg>';
+
+      var isKo = (function () {
+        var qs = window.location.search || '';
+        var m = /[?&]lang=(ko|en)\b/i.exec(qs);
+        if (m) return m[1].toLowerCase() === 'ko';
+        var navLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+        return navLang.indexOf('ko') === 0;
+      })();
+      var globalDarkText = true;
+      var globalUseBlur = false;
+      var opacityVal = 15;
+      var widgetSeq = 2;
+
+      var langBtn = document.getElementById('langToggleBtn');
+      var buyPrimaryBtn = document.getElementById('buyPrimaryBtn');
+      var buySecondaryBtn = document.getElementById('buySecondaryBtn');
+      var buyStatusNote = document.getElementById('buyStatusNote');
+      var canvas = document.getElementById('demoCanvas');
+      var snapLineV = document.getElementById('snapLineV');
+      var snapLineH = document.getElementById('snapLineH');
+      var snapBadge = document.getElementById('snapBadge');
+      var desktopHint = document.getElementById('desktopHint');
+      var demoTextBtn = document.getElementById('demoTextBtn');
+      var demoBlurBtn = document.getElementById('demoBlurBtn');
+      var demoOpacity = document.getElementById('demoOpacity');
+      var themeBtns = document.querySelectorAll('[data-theme]');
+
+      var customTitle = document.getElementById('customTitle');
+      var customDate = document.getElementById('customDate');
+      var customMode = document.getElementById('customMode');
+      var colorDots = document.querySelectorAll('.color-dot');
+      var sizeBtns = document.querySelectorAll('.size-btn');
+      var addWidgetBtn = document.getElementById('addWidgetBtn');
+
+      var ctxMenu = document.getElementById('widgetCtxMenu');
+      var ctxSizeToggle = document.getElementById('ctxSizeToggle');
+      var ctxSizeSub = document.getElementById('ctxSizeSub');
+      var ctxTargetWidget = null;
+
+      var widgetModal = document.getElementById('widgetModal');
+      var modalHeaderTitle = document.getElementById('modalHeaderTitle');
+      var modalCloseBtn = document.getElementById('modalCloseBtn');
+      var modalTitle = document.getElementById('modalTitle');
+      var modalDate = document.getElementById('modalDate');
+      var modalRepeat = document.getElementById('modalRepeat');
+      var modalPreview = document.getElementById('modalPreview');
+      var modalColorChips = document.querySelectorAll('.modal-color-chip');
+      var modalMemo = document.getElementById('modalMemo');
+      var modalSizeKeepWrap = document.getElementById('modalSizeKeepWrap');
+      var modalProgress = document.getElementById('modalProgress');
+      var modalBlur = document.getElementById('modalBlur');
+      var modalCenter = document.getElementById('modalCenter');
+      var modalTopmost = document.getElementById('modalTopmost');
+      var modalError = document.getElementById('modalError');
+      var modalCancelBtn = document.getElementById('modalCancelBtn');
+      var modalSaveBtn = document.getElementById('modalSaveBtn');
+
+      var selectedWidget = document.getElementById('widget1');
+      var modalEditingWidget = null;
+      var modalAnchorWidget = null;
+      var modalSelectedColor = '#4DABF7';
+
+      function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+      function formatYmd(d) {
+        return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+      }
+
+      function getTodayLocal() {
+        var now = new Date();
+        return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      }
+
+      function addDaysYmd(offset) {
+        var t = getTodayLocal();
+        return formatYmd(new Date(t.getFullYear(), t.getMonth(), t.getDate() + offset));
+      }
+
+      function parseLocalDate(ymd) {
+        if (!ymd || !/^\d{4}-\d{2}-\d{2}$/.test(ymd)) {
+          return getTodayLocal();
+        }
+        var parts = ymd.split('-');
+        return new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+      }
+
+      function daysInMonth(year, monthIdx) {
+        return new Date(year, monthIdx + 1, 0).getDate();
+      }
+
+      function getAllWidgets() {
+        return canvas.querySelectorAll('.glass-widget');
+      }
+
+      function buildHoverBarHtml() {
+        return '<button type="button" data-action="add" title="Add">+</button>' +
+          '<button type="button" data-action="text" title="Text">가</button>' +
+          '<button type="button" data-action="topmost" title="Topmost">' + ICON_PIN + '</button>' +
+          '<button type="button" data-action="lock" title="Lock">' + ICON_UNLOCK + '</button>' +
+          '<button type="button" data-action="style" title="Style">' + ICON_STYLE + '</button>' +
+          '<button type="button" data-action="edit" title="Edit">' + ICON_EDIT + '</button>' +
+          '<button type="button" data-action="delete" title="Delete">' + ICON_DEL + '</button>';
+      }
+
+      function buildMiniBarHtml() {
+        return '<input class="mini-opacity-slider" type="range" min="2" max="95" value="15" />' +
+          '<span class="mini-opacity-val">15%</span>' +
+          '<div class="mini-size-group">' +
+            '<button type="button" class="mini-size-btn" data-mini-size="sm">소</button>' +
+            '<button type="button" class="mini-size-btn active" data-mini-size="md">중</button>' +
+            '<button type="button" class="mini-size-btn" data-mini-size="lg">대</button>' +
+          '</div>';
+      }
+
+      function ensureWidgetControls(el) {
+        if (!el.querySelector('.widget-hover-bar')) {
+          var hb = document.createElement('div');
+          hb.className = 'widget-hover-bar';
+          hb.innerHTML = buildHoverBarHtml();
+          el.appendChild(hb);
+        }
+        if (!el.querySelector('.widget-mini-bar')) {
+          var mb = document.createElement('div');
+          mb.className = 'widget-mini-bar';
+          mb.innerHTML = buildMiniBarHtml();
+          el.appendChild(mb);
+        }
+        if (!el.querySelector('.widget-resize-grip')) {
+          var rg = document.createElement('div');
+          rg.className = 'widget-resize-grip';
+          el.appendChild(rg);
+        }
+      }
+
+      function getEffectiveTargetDate(ymd, mode, repeatCycle, today) {
+        var target = parseLocalDate(ymd);
+        if (mode === 'dplus' || !repeatCycle || repeatCycle === 'none') {
+          return target;
+        }
+        if (target >= today) {
+          return target;
+        }
+        if (repeatCycle === 'yearly') {
+          var y = today.getFullYear();
+          var dY = Math.min(target.getDate(), daysInMonth(y, target.getMonth()));
+          var candY = new Date(y, target.getMonth(), dY);
+          if (candY < today) {
+            y += 1;
+            candY = new Date(y, target.getMonth(), Math.min(target.getDate(), daysInMonth(y, target.getMonth())));
+          }
+          return candY;
+        }
+        if (repeatCycle === 'monthly') {
+          var yr = today.getFullYear();
+          var mo = today.getMonth();
+          var dM = Math.min(target.getDate(), daysInMonth(yr, mo));
+          var candM = new Date(yr, mo, dM);
+          if (candM < today) {
+            mo += 1;
+            if (mo > 11) { mo = 0; yr += 1; }
+            candM = new Date(yr, mo, Math.min(target.getDate(), daysInMonth(yr, mo)));
+          }
+          return candM;
+        }
+        if (repeatCycle === 'weekly') {
+          var diffDays = Math.round((today - target) / 86400000);
+          var weeks = Math.floor((diffDays + 6) / 7);
+          return new Date(target.getFullYear(), target.getMonth(), target.getDate() + weeks * 7);
+        }
+        return target;
+      }
+
+      function getPreviousOccurrence(origYmd, occDate, repeatCycle) {
+        var origDay = parseLocalDate(origYmd).getDate();
+        if (repeatCycle === 'weekly') {
+          return new Date(occDate.getFullYear(), occDate.getMonth(), occDate.getDate() - 7);
+        }
+        if (repeatCycle === 'monthly') {
+          var prevMo = new Date(occDate.getFullYear(), occDate.getMonth() - 1, 1);
+          return new Date(prevMo.getFullYear(), prevMo.getMonth(), Math.min(origDay, daysInMonth(prevMo.getFullYear(), prevMo.getMonth())));
+        }
+        if (repeatCycle === 'yearly') {
+          var yr = occDate.getFullYear() - 1;
+          return new Date(yr, occDate.getMonth(), Math.min(origDay, daysInMonth(yr, occDate.getMonth())));
+        }
+        return null;
+      }
+
+      function calculateProgressPercent(startYmd, targetYmd, mode, repeatCycle, today) {
+        var end = getEffectiveTargetDate(targetYmd, mode, repeatCycle, today);
+        if (mode === 'dplus') {
+          var elapsed = Math.round((today - end) / 86400000) + 1;
+          if (elapsed <= 0) return 0;
+          return ((elapsed - 1) % 100) + 1;
+        }
+        var start = startYmd ? parseLocalDate(startYmd) : getTodayLocal();
+        var prev = getPreviousOccurrence(targetYmd, end, repeatCycle);
+        if (prev) {
+          start = prev;
+        }
+        if (end <= start) {
+          return today >= end ? 100 : 0;
+        }
+        var totalDays = (end - start) / 86400000;
+        var passedDays = (today - start) / 86400000;
+        var pct = Math.floor(Math.max(0, Math.min(100, (passedDays / totalDays) * 100)));
+        return pct;
+      }
+
+      function computeDDayInfo(opts, today) {
+        var mode = opts.mode || 'dday';
+        var repeatCycle = opts.repeat || 'none';
+        var target = getEffectiveTargetDate(opts.date, mode, repeatCycle, today);
+        var koDays = ['일', '월', '화', '수', '목', '금', '토'];
+        var enDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        var dow = target.getDay();
+        var dateStr = isKo
+          ? (target.getFullYear() + '.' + pad2(target.getMonth() + 1) + '.' + pad2(target.getDate()) + ' (' + koDays[dow] + ')')
+          : (formatYmd(target) + ' (' + enDays[dow] + ')');
+
+        var badgeText = '';
+        var subText = '';
+        var tagText = '';
+
+        if (mode === 'dplus') {
+          var elapsed = Math.round((today - target) / 86400000) + 1;
+          tagText = isKo ? '1일 기준' : 'Day Count';
+          if (elapsed >= 1) {
+            badgeText = 'D+' + elapsed;
+            subText = dateStr + ' · ' + (isKo ? ('시작 ' + elapsed + '일째') : ('Day ' + elapsed));
+          } else {
+            var untilStart = Math.round((target - today) / 86400000);
+            badgeText = 'D-' + untilStart;
+            subText = dateStr + ' · ' + (isKo ? ('시작 ' + untilStart + '일 전') : ('Starts in ' + untilStart + 'd'));
+          }
+        } else {
+          var baseTag = isKo ? '카운트다운' : 'Countdown';
+          var repMap = {
+            yearly: isKo ? '매년 반복' : 'Yearly',
+            monthly: isKo ? '매월 반복' : 'Monthly',
+            weekly: isKo ? '매주 반복' : 'Weekly'
+          };
+          tagText = repMap[repeatCycle] ? (baseTag + ' · ' + repMap[repeatCycle]) : baseTag;
+          var diff = Math.round((target - today) / 86400000);
+          if (diff > 0) {
+            badgeText = 'D-' + diff;
+            subText = dateStr + ' · ' + (isKo ? (diff + '일 남음') : (diff + 'd left'));
+          } else if (diff === 0) {
+            badgeText = 'D-Day';
+            subText = dateStr + ' · ' + (isKo ? '바로 오늘!' : 'Today!');
+          } else {
+            var passed = Math.abs(diff);
+            badgeText = 'D+' + passed;
+            subText = dateStr + ' · ' + (isKo ? (passed + '일 지남') : (passed + 'd ago'));
+          }
+        }
+
+        var pct = calculateProgressPercent(opts.startDate, opts.date, mode, repeatCycle, today);
+        return { tagText: tagText, badgeText: badgeText, subText: subText, pct: pct };
+      }
+
+      function updateResponsiveTypography(w) {
+        if (!w) return;
+        var cw = parseFloat(w.dataset.width) || w.offsetWidth || 280;
+        var ch = parseFloat(w.dataset.height) || w.offsetHeight || 150;
+        var maxCanvasW = Math.max(190, canvas.clientWidth - 16);
+        var effW = Math.min(cw, maxCanvasW);
+        w.style.width = Math.round(effW) + 'px';
+        w.style.height = Math.round(ch) + 'px';
+
+        var scale = Math.max(0.78, Math.min(1.45, Math.min(effW / 280, ch / 150)));
+        var centerAlign = w.dataset.center === '1';
+        var showProgress = w.dataset.progress === '1';
+        var memoEl = w.querySelector('.widget-memo');
+        var hasMemo = !!(memoEl && memoEl.textContent && memoEl.textContent.trim());
+
+        var compactCenter = centerAlign && ch < 145;
+        var tightCenter = centerAlign && !compactCenter && ch <= 160 && (showProgress || hasMemo);
+        var hideLeftMemoTight = !centerAlign && ch < 120 && showProgress;
+
+        var tagRow = w.querySelector('.widget-tag-row');
+        var subEl = w.querySelector('.widget-sub');
+        var bodyWrap = w.querySelector('.widget-body-wrap');
+        var titleEl = w.querySelector('.widget-title');
+        var badgeEl = w.querySelector('.widget-dday');
+
+        if (tagRow) tagRow.style.display = compactCenter ? 'none' : 'flex';
+        if (memoEl) memoEl.style.display = (hasMemo && !compactCenter && !hideLeftMemoTight) ? 'block' : 'none';
+        if (subEl) subEl.style.display = (compactCenter && showProgress && ch < 120) ? 'none' : 'block';
+        if (bodyWrap) bodyWrap.style.padding = compactCenter ? '9px 12px 7px' : (tightCenter ? '10px 12px 8px' : '14px 14px 10px');
+
+        if (titleEl) {
+          titleEl.style.marginTop = tightCenter ? '1.5px' : '3px';
+          titleEl.style.fontSize = (Math.round(15 * scale * 10) / 10) + 'px';
+        }
+        if (subEl) {
+          subEl.style.marginTop = tightCenter ? '1.5px' : '3px';
+          subEl.style.fontSize = (Math.round(11 * scale * 10) / 10) + 'px';
+        }
+        if (memoEl) {
+          memoEl.style.marginTop = tightCenter ? '1px' : '2px';
+          memoEl.style.fontSize = (Math.round(10.5 * scale * 10) / 10) + 'px';
+        }
+        if (badgeEl) {
+          var badgeBase = centerAlign ? (tightCenter ? 21 : 23) : 26;
+          badgeEl.style.fontSize = (Math.round(badgeBase * scale * 10) / 10) + 'px';
+        }
+      }
+
+      function applyWidgetStyle(w) {
+        if (!w) return;
+        var opPct = parseInt(w.dataset.opacity, 10);
+        if (isNaN(opPct)) opPct = opacityVal;
+        opPct = Math.max(2, Math.min(95, opPct));
+        w.dataset.opacity = String(opPct);
+
+        var alpha = Math.max(0.02, Math.min(0.95, (opPct / 100) * (180 / 255))).toFixed(3);
+        var darkText = w.dataset.darkText === '1';
+        var blurOn = w.dataset.blur === '1';
+        var locked = w.dataset.locked === '1';
+        var topmost = w.dataset.topmost === '1';
+        var centerAlign = w.dataset.center === '1';
+
+        w.style.background = darkText
+          ? ('rgba(255, 255, 255, ' + alpha + ')')
+          : ('rgba(18, 22, 32, ' + alpha + ')');
+        w.style.backdropFilter = blurOn ? 'blur(12px)' : 'none';
+        w.style.webkitBackdropFilter = blurOn ? 'blur(12px)' : 'none';
+        w.classList.toggle('dark-text', darkText);
+        w.classList.toggle('is-locked', locked);
+        w.classList.toggle('center-align', centerAlign);
+
+        var isSel = w.classList.contains('selected');
+        w.style.zIndex = topmost ? (isSel ? '5' : '4') : (isSel ? '4' : '3');
+
+        var titleEl = w.querySelector('.widget-title');
+        var badgeEl = w.querySelector('.widget-dday');
+        var subEl = w.querySelector('.widget-sub');
+        var memoEl = w.querySelector('.widget-memo');
+        var flagsEl = w.querySelector('.widget-flags');
+        var trackEl = w.querySelector('.progress-track');
+        var pctEl = w.querySelector('.progress-pct');
+
+        if (darkText) {
+          if (titleEl) titleEl.style.color = '#111318';
+          if (badgeEl) badgeEl.style.color = '#111318';
+          if (subEl) subEl.style.color = '#252A34';
+          if (flagsEl) flagsEl.style.color = '#252A34';
+          if (pctEl) pctEl.style.color = '#252A34';
+          if (memoEl) memoEl.style.color = '#3E4656';
+          if (trackEl) trackEl.style.background = 'rgba(0, 0, 0, 0.133)';
+        } else {
+          if (titleEl) titleEl.style.color = '#FFFFFF';
+          if (badgeEl) badgeEl.style.color = '#FFFFFF';
+          if (subEl) subEl.style.color = '#EEF2F8';
+          if (flagsEl) flagsEl.style.color = '#EEF2F8';
+          if (pctEl) pctEl.style.color = '#EEF2F8';
+          if (memoEl) memoEl.style.color = '#CED6E6';
+          if (trackEl) trackEl.style.background = 'rgba(255, 255, 255, 0.2)';
+        }
+
+        var flags = [];
+        if (topmost) flags.push('📌');
+        if (locked) flags.push('🔒');
+        if (blurOn) flags.push('💧');
+        if (flagsEl) {
+          flagsEl.textContent = flags.join(' ');
+          flagsEl.style.display = flags.length ? 'inline' : 'none';
+        }
+
+        var addBtn = w.querySelector('[data-action="add"]');
+        var textBtn = w.querySelector('[data-action="text"]');
+        var topmostBtn = w.querySelector('[data-action="topmost"]');
+        var lockBtn = w.querySelector('[data-action="lock"]');
+        var styleBtn = w.querySelector('[data-action="style"]');
+        var editBtn = w.querySelector('[data-action="edit"]');
+        var delBtn = w.querySelector('[data-action="delete"]');
+
+        if (addBtn) addBtn.title = isKo ? '새 D-Day 위젯 추가' : 'Add New D-Day Widget';
+        if (textBtn) {
+          textBtn.textContent = isKo ? '가' : 'A';
+          textBtn.style.color = darkText ? '#E67700' : '#333D4B';
+          textBtn.title = darkText
+            ? (isKo ? '현재 검정 글씨 (클릭 시 하얀 글씨로 전환)' : 'Dark text active (click for white text)')
+            : (isKo ? '현재 하얀 글씨 (클릭 시 검정 글씨로 전환)' : 'White text active (click for dark text)');
+        }
+        if (topmostBtn) {
+          topmostBtn.style.color = topmost ? '#E67700' : '#4E5968';
+          topmostBtn.title = isKo ? '항상 위에 고정 토글' : 'Toggle Always on Top';
+        }
+        if (lockBtn) {
+          lockBtn.innerHTML = locked ? ICON_LOCK : ICON_UNLOCK;
+          lockBtn.style.color = locked ? '#E03131' : '#4E5968';
+          lockBtn.title = isKo ? '위치/크기 잠금 토글' : 'Toggle Position/Size Lock';
+        }
+        if (styleBtn) {
+          styleBtn.style.color = w.classList.contains('mini-open') ? '#1971c2' : '#4E5968';
+          styleBtn.title = isKo ? '투명도 및 크기 프리셋' : 'Opacity & Size Presets';
+        }
+        if (editBtn) editBtn.title = isKo ? '일정 수정' : 'Edit Widget';
+        if (delBtn) delBtn.title = isKo ? '위젯 삭제' : 'Delete Widget';
+
+        var miniSlider = w.querySelector('.mini-opacity-slider');
+        var miniVal = w.querySelector('.mini-opacity-val');
+        if (miniSlider && parseInt(miniSlider.value, 10) !== opPct) {
+          miniSlider.value = String(opPct);
+        }
+        if (miniVal) miniVal.textContent = opPct + '%';
+
+        var miniSizeMap = isKo ? { sm: '소', md: '중', lg: '대' } : { sm: 'S', md: 'M', lg: 'L' };
+        var miniBtns = w.querySelectorAll('.mini-size-btn');
+        var curSize = w.dataset.size || 'md';
+        for (var j = 0; j < miniBtns.length; j++) {
+          var szKey = miniBtns[j].getAttribute('data-mini-size');
+          miniBtns[j].textContent = miniSizeMap[szKey] || szKey.toUpperCase();
+          miniBtns[j].disabled = locked;
+          miniBtns[j].classList.toggle('active', szKey === curSize);
+        }
+
+        updateResponsiveTypography(w);
+      }
+
+      function renderAllWidgetStyles() {
+        var widgets = getAllWidgets();
+        for (var i = 0; i < widgets.length; i++) {
+          applyWidgetStyle(widgets[i]);
+        }
+        demoTextBtn.textContent = isKo
+          ? (globalDarkText ? '글씨: 검정' : '글씨: 흰색')
+          : (globalDarkText ? 'Text: Black' : 'Text: White');
+        demoBlurBtn.textContent = isKo
+          ? (globalUseBlur ? '블러 ON' : '블러 OFF')
+          : (globalUseBlur ? 'Blur ON' : 'Blur OFF');
+        demoBlurBtn.classList.toggle('active', globalUseBlur);
+      }
+
+      function renderWidgetContent(w) {
+        if (!w) return;
+        var today = getTodayLocal();
+        var color = w.dataset.color || '#4DABF7';
+        var title = w.dataset.userEdited === '1'
+          ? (w.dataset.title || '')
+          : (isKo ? (w.dataset.titleKo || w.dataset.title) : (w.dataset.titleEn || w.dataset.title));
+        if (!title) title = isKo ? '새 목표' : 'New Goal';
+
+        var memo = w.dataset.userEdited === '1'
+          ? (w.dataset.memo || '')
+          : (isKo ? (w.dataset.memoKo !== undefined ? w.dataset.memoKo : w.dataset.memo) : (w.dataset.memoEn !== undefined ? w.dataset.memoEn : w.dataset.memo));
+
+        var info = computeDDayInfo({
+          date: w.dataset.date,
+          startDate: w.dataset.startDate,
+          mode: w.dataset.mode || 'dday',
+          repeat: w.dataset.repeat || 'none'
+        }, today);
+
+        w.querySelector('.widget-accent').style.background = color;
+        var tagEl = w.querySelector('.widget-tag');
+        tagEl.textContent = info.tagText;
+        tagEl.style.color = color;
+        w.querySelector('.widget-title').textContent = title;
+        w.querySelector('.widget-sub').textContent = info.subText;
+        w.querySelector('.widget-dday').textContent = info.badgeText;
+
+        var memoEl = w.querySelector('.widget-memo');
+        if (memoEl) memoEl.textContent = memo || '';
+
+        var showProgress = w.dataset.progress === '1';
+        var pr = w.querySelector('.progress-row');
+        var pf = w.querySelector('.progress-fill');
+        var pp = w.querySelector('.progress-pct');
+        if (pr && pf && pp) {
+          pr.style.display = showProgress ? 'flex' : 'none';
+          pf.style.background = color;
+          pf.style.width = info.pct + '%';
+          pp.textContent = info.pct + '%';
+        }
+
+        updateResponsiveTypography(w);
+      }
+
+      function selectWidget(w) {
+        if (!w) return;
+        var widgets = getAllWidgets();
+        for (var i = 0; i < widgets.length; i++) {
+          widgets[i].classList.remove('selected');
+        }
+        selectedWidget = w;
+        w.classList.add('selected');
+        applyWidgetStyle(w);
+        syncCustomizerFromWidget(w);
+      }
+
+      function syncCustomizerFromWidget(w) {
+        if (!w) return;
+        customTitle.value = w.dataset.userEdited === '1'
+          ? (w.dataset.title || '')
+          : (isKo ? (w.dataset.titleKo || w.dataset.title) : (w.dataset.titleEn || w.dataset.title));
+        customDate.value = w.dataset.date || addDaysYmd(30);
+
+        var mode = w.dataset.mode || 'dday';
+        customMode.textContent = mode === 'dplus'
+          ? (isKo ? 'D+1 (1일 기준)' : 'D+1 (Day Count)')
+          : (isKo ? 'D-Day (목표일)' : 'D-Day (Countdown)');
+        customMode.classList.toggle('active', mode === 'dday');
+
+        var curColor = (w.dataset.color || '#4DABF7').toLowerCase();
+        for (var i = 0; i < colorDots.length; i++) {
+          colorDots[i].classList.toggle('active', colorDots[i].getAttribute('data-color').toLowerCase() === curColor);
+        }
+        var curSize = w.dataset.size || 'md';
+        for (var j = 0; j < sizeBtns.length; j++) {
+          sizeBtns[j].classList.toggle('active', sizeBtns[j].getAttribute('data-size') === curSize);
+        }
+      }
+
+      function clampPosition(w) {
+        if (!w) return;
+        var maxX = Math.max(8, canvas.clientWidth - w.offsetWidth - 8);
+        var maxY = Math.max(8, canvas.clientHeight - w.offsetHeight - 8);
+        var nx = Math.max(8, Math.min(maxX, w.offsetLeft));
+        var ny = Math.max(8, Math.min(maxY, w.offsetTop));
+        w.style.left = nx + 'px';
+        w.style.top = ny + 'px';
+      }
+
+      function applySizePreset(w, presetKey) {
+        if (!w) return;
+        if (w.dataset.locked === '1') {
+          showLockHint();
+          return;
+        }
+        var dim = SIZE_PRESETS[presetKey] || SIZE_PRESETS.md;
+        w.dataset.size = presetKey;
+        w.dataset.width = String(dim.w);
+        w.dataset.height = String(dim.h);
+        updateResponsiveTypography(w);
+        clampPosition(w);
+        applyWidgetStyle(w);
+        if (w === selectedWidget) syncCustomizerFromWidget(w);
+      }
+
+      function showLockHint() {
+        desktopHint.textContent = isKo
+          ? '🔒 위치/크기가 잠겨 있습니다 — 위젯 위 🔒 버튼을 눌러 해제하세요'
+          : '🔒 Locked — click the lock button on the widget to unlock';
+      }
+
+      function detectPresetKey(width, height) {
+        for (var k in SIZE_PRESETS) {
+          if (Math.abs(width - SIZE_PRESETS[k].w) <= 3 && Math.abs(height - SIZE_PRESETS[k].h) <= 3) {
+            return k;
+          }
+        }
+        return 'custom';
+      }
+
+      function hideSnapGuides() {
+        snapLineV.style.display = 'none';
+        snapLineH.style.display = 'none';
+        snapBadge.style.display = 'none';
+      }
+
+      function applyMagneticSnap(el, rawX, rawY) {
+        var cw = canvas.clientWidth;
+        var ch = canvas.clientHeight;
+        var ew = el.offsetWidth;
+        var eh = el.offsetHeight;
+        var SNAP_TOL = 10;
+        var GAP = 16;
+
+        var bestX = { diff: SNAP_TOL + 1, val: rawX, guide: null, isGap: false };
+        var bestY = { diff: SNAP_TOL + 1, val: rawY, guide: null, isGap: false };
+
+        function testX(cand, guidePos, isGap) {
+          var d = Math.abs(rawX - cand);
+          if (d < bestX.diff) bestX = { diff: d, val: cand, guide: guidePos, isGap: isGap };
+        }
+        function testY(cand, guidePos, isGap) {
+          var d = Math.abs(rawY - cand);
+          if (d < bestY.diff) bestY = { diff: d, val: cand, guide: guidePos, isGap: isGap };
+        }
+
+        testX(GAP, GAP, false);
+        testX(cw - ew - GAP, cw - GAP, false);
+        testY(GAP, GAP, false);
+        testY(ch - eh - GAP, ch - GAP, false);
+
+        var siblings = getAllWidgets();
+        for (var i = 0; i < siblings.length; i++) {
+          var sib = siblings[i];
+          if (sib === el) continue;
+          var sl = sib.offsetLeft;
+          var st = sib.offsetTop;
+          var sr = sl + sib.offsetWidth;
+          var sb = st + sib.offsetHeight;
+
+          testX(sl, sl, false);
+          testX(sr + GAP, sr + 8, true);
+          testX(sl - ew - GAP, sl - 8, true);
+
+          testY(st, st, false);
+          testY(sb + GAP, sb + 8, true);
+          testY(st - eh - GAP, st - 8, true);
+        }
+
+        var snappedX = bestX.diff <= SNAP_TOL ? bestX.val : rawX;
+        var snappedY = bestY.diff <= SNAP_TOL ? bestY.val : rawY;
+        var maxX = Math.max(8, cw - ew - 8);
+        var maxY = Math.max(8, ch - eh - 8);
+        snappedX = Math.max(8, Math.min(maxX, snappedX));
+        snappedY = Math.max(8, Math.min(maxY, snappedY));
+
+        if (bestX.guide !== null && bestX.diff <= SNAP_TOL) {
+          snapLineV.style.left = bestX.guide + 'px';
+          snapLineV.style.display = 'block';
+        } else {
+          snapLineV.style.display = 'none';
+        }
+
+        if (bestY.guide !== null && bestY.diff <= SNAP_TOL) {
+          snapLineH.style.top = bestY.guide + 'px';
+          snapLineH.style.display = 'block';
+        } else {
+          snapLineH.style.display = 'none';
+        }
+
+        if (bestX.diff <= SNAP_TOL || bestY.diff <= SNAP_TOL) {
+          var isGap = (bestX.diff <= SNAP_TOL && bestX.isGap) || (bestY.diff <= SNAP_TOL && bestY.isGap);
+          snapBadge.textContent = isGap ? '16px SNAP' : 'ALIGN';
+          var bx = (bestX.guide !== null && bestX.diff <= SNAP_TOL) ? Math.min(cw - 76, Math.max(10, bestX.guide - 28)) : (snappedX + 10);
+          var by = (bestY.guide !== null && bestY.diff <= SNAP_TOL) ? Math.min(ch - 32, Math.max(8, bestY.guide + 4)) : (snappedY + eh + 6);
+          snapBadge.style.left = bx + 'px';
+          snapBadge.style.top = Math.min(ch - 28, Math.max(8, by)) + 'px';
+          snapBadge.style.display = 'block';
+        } else {
+          snapBadge.style.display = 'none';
+        }
+
+        return { x: snappedX, y: snappedY };
+      }
+
+      function isSlotFree(left, top, width, height) {
+        var widgets = getAllWidgets();
+        for (var i = 0; i < widgets.length; i++) {
+          var ex = widgets[i];
+          var ox = Math.min(left + width, ex.offsetLeft + ex.offsetWidth) - Math.max(left, ex.offsetLeft);
+          var oy = Math.min(top + height, ex.offsetTop + ex.offsetHeight) - Math.max(top, ex.offsetTop);
+          if (ox > 8 && oy > 8) return false;
+        }
+        return true;
+      }
+
+      function findSmartSlot(width, height, anchor) {
+        var cw = Math.max(300, canvas.clientWidth);
+        var ch = Math.max(260, canvas.clientHeight);
+        var gap = 16;
+        var cols = [32, 328, 624];
+        var rows = [32, 204, 344];
+
+        if (anchor) {
+          var nearTop = anchor.offsetTop + anchor.offsetHeight + 12;
+          if (nearTop + height <= ch - 12 && isSlotFree(anchor.offsetLeft, nearTop, width, height)) {
+            return { left: anchor.offsetLeft, top: nearTop };
+          }
+        }
+        for (var r = 0; r < rows.length; r++) {
+          for (var c = 0; c < cols.length; c++) {
+            var lx = Math.min(cols[c], Math.max(16, cw - width - 16));
+            var ty = Math.min(rows[r], Math.max(16, ch - height - 16));
+            if (isSlotFree(lx, ty, width, height)) {
+              return { left: lx, top: ty };
+            }
+          }
+        }
+        return {
+          left: Math.min(32 + (getAllWidgets().length * 24), Math.max(16, cw - width - 16)),
+          top: Math.min(32 + (getAllWidgets().length * 20), Math.max(16, ch - height - 16))
+        };
+      }
+
+      function deleteWidgetEl(el) {
+        var all = getAllWidgets();
+        if (all.length <= 1) {
+          desktopHint.textContent = isKo
+            ? '💡 최소 1개의 위젯은 남겨두어야 합니다'
+            : '💡 Keep at least 1 widget on canvas';
+          return;
+        }
+        if (el.parentNode) el.parentNode.removeChild(el);
+        var remaining = getAllWidgets();
+        if (remaining.length > 0) selectWidget(remaining[0]);
+      }
+
+      function closeCtxMenu() {
+        ctxMenu.style.display = 'none';
+        ctxSizeSub.classList.remove('open');
+        ctxTargetWidget = null;
+      }
+
+      function openCtxMenu(w, clientX, clientY) {
+        if (!w) return;
+        selectWidget(w);
+        ctxTargetWidget = w;
+        var locked = w.dataset.locked === '1';
+        ctxSizeToggle.disabled = locked;
+        ctxSizeSub.classList.remove('open');
+
+        document.getElementById('ctxChkText').textContent = w.dataset.darkText === '1' ? '✓' : '';
+        document.getElementById('ctxChkBlur').textContent = w.dataset.blur === '1' ? '✓' : '';
+        document.getElementById('ctxChkProgress').textContent = w.dataset.progress === '1' ? '✓' : '';
+        document.getElementById('ctxChkCenter').textContent = w.dataset.center === '1' ? '✓' : '';
+        document.getElementById('ctxChkTopmost').textContent = w.dataset.topmost === '1' ? '✓' : '';
+        document.getElementById('ctxChkLock').textContent = locked ? '✓' : '';
+
+        ctxMenu.style.display = 'block';
+        var mw = ctxMenu.offsetWidth || 228;
+        var mh = ctxMenu.offsetHeight || 300;
+        var left = Math.min(clientX, window.innerWidth - mw - 10);
+        var top = Math.min(clientY, window.innerHeight - mh - 10);
+        ctxMenu.style.left = Math.max(8, left) + 'px';
+        ctxMenu.style.top = Math.max(8, top) + 'px';
+      }
+
+      function getModalSelectedValue(name, fallback) {
+        var r = widgetModal.querySelector('input[name="' + name + '"]:checked');
+        return r ? r.value : fallback;
+      }
+
+      function setModalRadioValue(name, val) {
+        var rs = widgetModal.querySelectorAll('input[name="' + name + '"]');
+        for (var i = 0; i < rs.length; i++) {
+          rs[i].checked = (rs[i].value === val);
+        }
+      }
+
+      function updateModalColorHighlight() {
+        for (var i = 0; i < modalColorChips.length; i++) {
+          var hex = modalColorChips[i].getAttribute('data-modal-color');
+          modalColorChips[i].classList.toggle('active', hex.toLowerCase() === modalSelectedColor.toLowerCase());
+        }
+      }
+
+      function updateModalRepeatAvailability() {
+        var isDplus = getModalSelectedValue('modalMode', 'dday') === 'dplus';
+        modalRepeat.disabled = isDplus;
+        modalRepeat.title = isDplus
+          ? (isKo ? '반복 주기는 카운트다운 방식에서만 사용할 수 있습니다.' : 'Repeat cycles are only available in Countdown mode.')
+          : '';
+      }
+
+      function updateModalPreview() {
+        var mode = getModalSelectedValue('modalMode', 'dday');
+        var repeatCycle = mode === 'dplus' ? 'none' : (modalRepeat.value || 'none');
+        var info = computeDDayInfo({
+          date: modalDate.value || addDaysYmd(30),
+          startDate: modalEditingWidget ? modalEditingWidget.dataset.startDate : formatYmd(getTodayLocal()),
+          mode: mode,
+          repeat: repeatCycle
+        }, getTodayLocal());
+        modalPreview.textContent = (isKo ? '미리보기: [' : 'Preview: [') + info.badgeText + ']  ' + info.subText;
+      }
+
+      function openWidgetModal(editWidget, anchor) {
+        if (!editWidget && getAllWidgets().length >= 6) {
+          desktopHint.textContent = isKo
+            ? '💡 웹 체험판에서는 최대 6개까지 동시에 체험할 수 있습니다 (실제 앱은 무제한)'
+            : '💡 Web demo allows up to 6 widgets (unlimited in Windows app)';
+          return;
+        }
+        closeCtxMenu();
+        modalError.style.display = 'none';
+        modalEditingWidget = editWidget || null;
+        modalAnchorWidget = anchor || selectedWidget;
+
+        var isEdit = !!modalEditingWidget;
+        modalHeaderTitle.textContent = isEdit
+          ? (isKo ? 'D-Day 위젯 수정' : 'Edit D-Day Widget')
+          : (isKo ? '새 D-Day 위젯 추가' : 'Add New D-Day Widget');
+        modalTitle.placeholder = isKo ? '예: 프로젝트 마감, 기념일, 여행' : 'e.g. Project Deadline, Anniversary, Trip';
+        modalMemo.placeholder = isKo ? '간단한 메모를 입력하세요' : 'Add a short note';
+
+        if (isEdit) {
+          var w = modalEditingWidget;
+          modalTitle.value = w.dataset.userEdited === '1'
+            ? (w.dataset.title || '')
+            : (isKo ? (w.dataset.titleKo || w.dataset.title) : (w.dataset.titleEn || w.dataset.title));
+          modalDate.value = w.dataset.date || addDaysYmd(30);
+          setModalRadioValue('modalMode', w.dataset.mode || 'dday');
+          modalRepeat.value = w.dataset.repeat || 'none';
+          modalSelectedColor = w.dataset.color || '#4DABF7';
+          modalMemo.value = w.dataset.userEdited === '1'
+            ? (w.dataset.memo || '')
+            : (isKo ? (w.dataset.memoKo || w.dataset.memo || '') : (w.dataset.memoEn || w.dataset.memo || ''));
+          modalSizeKeepWrap.style.display = 'inline-flex';
+          setModalRadioValue('modalSize', 'keep');
+          setModalRadioValue('modalTextColor', w.dataset.darkText === '1' ? 'black' : 'white');
+          modalProgress.checked = w.dataset.progress === '1';
+          modalBlur.checked = w.dataset.blur === '1';
+          modalCenter.checked = w.dataset.center === '1';
+          modalTopmost.checked = w.dataset.topmost === '1';
+        } else {
+          var nextIdx = Math.max(0, widgetSeq - 1) % NEW_PRESETS.length;
+          var p = NEW_PRESETS[nextIdx];
+          modalTitle.value = isKo ? p.titleKo : p.titleEn;
+          modalDate.value = addDaysYmd(p.offset);
+          setModalRadioValue('modalMode', 'dday');
+          modalRepeat.value = 'none';
+          modalSelectedColor = p.color;
+          modalMemo.value = isKo ? p.memoKo : p.memoEn;
+          modalSizeKeepWrap.style.display = 'none';
+          setModalRadioValue('modalSize', 'md');
+          setModalRadioValue('modalTextColor', globalDarkText ? 'black' : 'white');
+          modalProgress.checked = false;
+          modalBlur.checked = globalUseBlur;
+          modalCenter.checked = false;
+          modalTopmost.checked = false;
+        }
+
+        var lockedEdit = isEdit && modalEditingWidget.dataset.locked === '1';
+        var szRadios = widgetModal.querySelectorAll('input[name="modalSize"]');
+        for (var i = 0; i < szRadios.length; i++) {
+          if (szRadios[i].value !== 'keep') {
+            szRadios[i].disabled = lockedEdit;
+            szRadios[i].parentNode.style.opacity = lockedEdit ? '0.45' : '1';
+          }
+        }
+
+        updateModalColorHighlight();
+        updateModalRepeatAvailability();
+        updateModalPreview();
+        widgetModal.classList.add('open');
+        setTimeout(function () { modalTitle.focus(); modalTitle.select(); }, 20);
+      }
+
+      function closeWidgetModal() {
+        widgetModal.classList.remove('open');
+        modalEditingWidget = null;
+        modalAnchorWidget = null;
+      }
+
+      function toggleWidgetFlag(el, dataKey) {
+        el.dataset[dataKey] = el.dataset[dataKey] === '1' ? '0' : '1';
+        applyWidgetStyle(el);
+        renderWidgetContent(el);
+      }
+
+      function bindWidgetEvents(el) {
+        ensureWidgetControls(el);
+        var dragging = false, resizing = false;
+        var startX = 0, startY = 0, origLeft = 0, origTop = 0, origW = 280, origH = 150;
+
+        var hoverBtns = el.querySelectorAll('.widget-hover-bar button');
+        for (var i = 0; i < hoverBtns.length; i++) {
+          hoverBtns[i].addEventListener('pointerdown', function (e) { e.stopPropagation(); });
+          hoverBtns[i].addEventListener('click', function (e) {
+            e.stopPropagation();
+            el.classList.remove('demo-peek');
+            selectWidget(el);
+            var act = this.getAttribute('data-action');
+            if (act === 'add') {
+              openWidgetModal(null, el);
+            } else if (act === 'text') {
+              toggleWidgetFlag(el, 'darkText');
+            } else if (act === 'topmost') {
+              toggleWidgetFlag(el, 'topmost');
+            } else if (act === 'lock') {
+              toggleWidgetFlag(el, 'locked');
+            } else if (act === 'style') {
+              var willOpen = !el.classList.contains('mini-open');
+              var all = getAllWidgets();
+              for (var k = 0; k < all.length; k++) all[k].classList.remove('mini-open');
+              if (willOpen) el.classList.add('mini-open');
+              renderAllWidgetStyles();
+            } else if (act === 'edit') {
+              openWidgetModal(el, el);
+            } else if (act === 'delete') {
+              deleteWidgetEl(el);
+            }
+          });
+        }
+
+        var miniBar = el.querySelector('.widget-mini-bar');
+        if (miniBar) {
+          miniBar.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
+          miniBar.addEventListener('click', function (e) { e.stopPropagation(); });
+          var slider = miniBar.querySelector('.mini-opacity-slider');
+          if (slider) {
+            slider.addEventListener('input', function () {
+              var v = Math.max(2, Math.min(95, parseInt(this.value, 10) || 15));
+              el.dataset.opacity = String(v);
+              applyWidgetStyle(el);
+              if (el === selectedWidget) demoOpacity.value = String(v);
+            });
+          }
+          var mBtns = miniBar.querySelectorAll('.mini-size-btn');
+          for (var j = 0; j < mBtns.length; j++) {
+            mBtns[j].addEventListener('click', function (e) {
+              e.stopPropagation();
+              applySizePreset(el, this.getAttribute('data-mini-size'));
+            });
+          }
+        }
+
+        var grip = el.querySelector('.widget-resize-grip');
+        if (grip) {
+          grip.addEventListener('pointerdown', function (e) {
+            e.stopPropagation();
+            if (e.button !== 0) return;
+            selectWidget(el);
+            if (el.dataset.locked === '1') {
+              showLockHint();
+              return;
+            }
+            resizing = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            origW = el.offsetWidth;
+            origH = el.offsetHeight;
+            grip.setPointerCapture(e.pointerId);
+          });
+          grip.addEventListener('pointermove', function (e) {
+            if (!resizing) return;
+            var maxW = Math.min(560, canvas.clientWidth - el.offsetLeft - 8);
+            var maxH = Math.min(420, canvas.clientHeight - el.offsetTop - 8);
+            var nw = Math.max(190, Math.min(maxW, Math.round(origW + (e.clientX - startX))));
+            var nh = Math.max(110, Math.min(maxH, Math.round(origH + (e.clientY - startY))));
+            el.dataset.width = String(nw);
+            el.dataset.height = String(nh);
+            el.dataset.size = detectPresetKey(nw, nh);
+            updateResponsiveTypography(el);
+            applyWidgetStyle(el);
+            if (el === selectedWidget) syncCustomizerFromWidget(el);
+          });
+          grip.addEventListener('pointerup', function () { resizing = false; });
+          grip.addEventListener('pointercancel', function () { resizing = false; });
+        }
+
+        el.addEventListener('dblclick', function (e) {
+          if (e.target.closest('.widget-hover-bar, .widget-mini-bar, .widget-resize-grip')) return;
+          openWidgetModal(el, el);
+        });
+
+        el.addEventListener('contextmenu', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          openCtxMenu(el, e.clientX, e.clientY);
+        });
+
+        el.addEventListener('mouseleave', function () {
+          if (!el.classList.contains('mini-open')) {
+            el.classList.remove('demo-peek');
+          }
+        });
+
+        el.addEventListener('pointerdown', function (e) {
+          if (e.button !== 0) return;
+          if (e.target.closest('.widget-hover-bar, .widget-mini-bar, .widget-resize-grip')) return;
+          el.classList.remove('demo-peek');
+          selectWidget(el);
+          if (el.dataset.locked === '1') {
+            showLockHint();
+            return;
+          }
+          dragging = true;
+          startX = e.clientX;
+          startY = e.clientY;
+          origLeft = el.offsetLeft;
+          origTop = el.offsetTop;
+          el.setPointerCapture(e.pointerId);
+        });
+
+        el.addEventListener('pointermove', function (e) {
+          if (!dragging) return;
+          var pos = applyMagneticSnap(el, origLeft + (e.clientX - startX), origTop + (e.clientY - startY));
+          el.style.left = pos.x + 'px';
+          el.style.top = pos.y + 'px';
+        });
+
+        el.addEventListener('pointerup', function () { dragging = false; hideSnapGuides(); });
+        el.addEventListener('pointercancel', function () { dragging = false; hideSnapGuides(); });
+      }
+
+      function createDemoWidget(opts) {
+        var div = document.createElement('div');
+        div.className = 'glass-widget';
+        div.id = 'widget' + opts.seq;
+        var sz = opts.size || 'md';
+        var dim = SIZE_PRESETS[sz] || SIZE_PRESETS.md;
+        div.dataset.color = opts.color || '#4DABF7';
+        div.dataset.size = sz;
+        div.dataset.width = String(opts.width || dim.w);
+        div.dataset.height = String(opts.height || dim.h);
+        div.dataset.mode = opts.mode || 'dday';
+        div.dataset.repeat = opts.repeat || 'none';
+        div.dataset.date = opts.date || addDaysYmd(30);
+        div.dataset.startDate = opts.startDate || formatYmd(getTodayLocal());
+        div.dataset.title = opts.title || opts.titleKo || '';
+        div.dataset.titleKo = opts.titleKo || opts.title || '';
+        div.dataset.titleEn = opts.titleEn || opts.title || '';
+        div.dataset.memo = opts.memo || '';
+        div.dataset.memoKo = opts.memoKo !== undefined ? opts.memoKo : (opts.memo || '');
+        div.dataset.memoEn = opts.memoEn !== undefined ? opts.memoEn : (opts.memo || '');
+        div.dataset.userEdited = opts.userEdited || '0';
+        div.dataset.darkText = opts.darkText ? '1' : '0';
+        div.dataset.blur = opts.blur ? '1' : '0';
+        div.dataset.locked = '0';
+        div.dataset.topmost = opts.topmost ? '1' : '0';
+        div.dataset.progress = opts.progress ? '1' : '0';
+        div.dataset.center = opts.center ? '1' : '0';
+        div.dataset.opacity = String(opts.opacity || opacityVal);
+        div.style.left = opts.left + 'px';
+        div.style.top = opts.top + 'px';
+        div.innerHTML =
+          '<div class="widget-accent"></div>' +
+          '<div class="widget-body-wrap">' +
+            '<div class="widget-content-grid">' +
+              '<div class="widget-left-panel">' +
+                '<div class="widget-tag-row">' +
+                  '<span class="widget-tag"></span>' +
+                  '<span class="widget-flags"></span>' +
+                '</div>' +
+                '<div class="widget-title"></div>' +
+                '<div class="widget-sub"></div>' +
+                '<div class="widget-memo"></div>' +
+              '</div>' +
+              '<div class="widget-dday"></div>' +
+            '</div>' +
+            '<div class="progress-row">' +
+              '<div class="progress-track"><div class="progress-fill"></div></div>' +
+              '<span class="progress-pct">0%</span>' +
+            '</div>' +
+          '</div>';
+        canvas.insertBefore(div, desktopHint);
+        bindWidgetEvents(div);
+        renderWidgetContent(div);
+        applyWidgetStyle(div);
+        clampPosition(div);
+        return div;
+      }
+
+      function applyLanguage() {
+        var nodes = document.querySelectorAll('[data-ko][data-en]');
+        for (var i = 0; i < nodes.length; i++) {
+          var el = nodes[i];
+          var val = isKo ? el.getAttribute('data-ko') : el.getAttribute('data-en');
+          if (el.tagName === 'OPTION') {
+            el.textContent = val;
+          } else if (val.indexOf('<') !== -1) {
+            el.innerHTML = val;
+          } else {
+            el.textContent = val;
+          }
+        }
+        langBtn.textContent = isKo ? '🌐 English' : '🌐 한국어';
+        customTitle.placeholder = isKo ? '내 목표 제목 입력...' : 'Type your D-Day title...';
+        var langImgs = document.querySelectorAll('[data-src-ko][data-src-en]');
+        for (var k = 0; k < langImgs.length; k++) {
+          langImgs[k].src = isKo ? langImgs[k].getAttribute('data-src-ko') : langImgs[k].getAttribute('data-src-en');
+        }
+        document.documentElement.lang = isKo ? 'ko' : 'en';
+        document.title = isKo
+          ? 'IMOE_DDAY — 무료 바탕화면 글래스 D-Day 위젯'
+          : 'IMOE_DDAY — Free Glass Desktop D-Day Widget';
+
+        var widgets = getAllWidgets();
+        for (var m = 0; m < widgets.length; m++) {
+          renderWidgetContent(widgets[m]);
+        }
+        syncCustomizerFromWidget(selectedWidget);
+        syncStoreLinks();
+        renderAllWidgetStyles();
+      }
+
+      function bindStoreLink(btn, url) {
+        if (!btn) return;
+        if (url) {
+          btn.href = url;
+          if (/\.zip(\?|$)/i.test(url)) {
+            btn.removeAttribute('target');
+            btn.removeAttribute('rel');
+            btn.setAttribute('download', '');
+          } else {
+            btn.target = '_blank';
+            btn.rel = 'noopener noreferrer';
+            btn.removeAttribute('download');
+          }
+          btn.removeAttribute('data-pending');
+        } else {
+          btn.href = '#pricing';
+          btn.removeAttribute('target');
+          btn.removeAttribute('rel');
+          btn.removeAttribute('download');
+          btn.setAttribute('data-pending', '1');
+        }
+      }
+
+      function syncStoreLinks() {
+        var primaryUrl = isKo ? STORE_URLS.koDirect : (STORE_URLS.gumroad || STORE_URLS.msStore);
+        var secondaryUrl = isKo ? (STORE_URLS.gumroad || STORE_URLS.msStore) : (STORE_URLS.msStore || STORE_URLS.koDirect);
+        bindStoreLink(buyPrimaryBtn, primaryUrl);
+        bindStoreLink(buySecondaryBtn, secondaryUrl);
+        if (buyStatusNote && buyStatusNote.style.display === 'block') {
+          buyStatusNote.textContent = isKo
+            ? '다운로드 경로가 아직 연결되지 않았습니다.'
+            : 'Download link pending.';
+        }
+      }
+
+      function handlePendingStoreClick(e) {
+        if (this.getAttribute('data-pending') === '1') {
+          e.preventDefault();
+          if (buyStatusNote) {
+            buyStatusNote.textContent = isKo
+              ? '다운로드 경로가 아직 연결되지 않았습니다.'
+              : 'Download link pending.';
+            buyStatusNote.style.display = 'block';
+          }
+        }
+      }
+
+      if (buyPrimaryBtn) buyPrimaryBtn.addEventListener('click', handlePendingStoreClick);
+      if (buySecondaryBtn) buySecondaryBtn.addEventListener('click', handlePendingStoreClick);
+
+      langBtn.addEventListener('click', function () {
+        isKo = !isKo;
+        applyLanguage();
+      });
+
+      demoTextBtn.addEventListener('click', function () {
+        globalDarkText = !globalDarkText;
+        var widgets = getAllWidgets();
+        for (var i = 0; i < widgets.length; i++) {
+          widgets[i].dataset.darkText = globalDarkText ? '1' : '0';
+        }
+        renderAllWidgetStyles();
+      });
+
+      demoBlurBtn.addEventListener('click', function () {
+        globalUseBlur = !globalUseBlur;
+        var widgets = getAllWidgets();
+        for (var i = 0; i < widgets.length; i++) {
+          widgets[i].dataset.blur = globalUseBlur ? '1' : '0';
+        }
+        renderAllWidgetStyles();
+      });
+
+      demoOpacity.addEventListener('input', function () {
+        opacityVal = parseInt(demoOpacity.value, 10) || 15;
+        var widgets = getAllWidgets();
+        for (var i = 0; i < widgets.length; i++) {
+          widgets[i].dataset.opacity = String(opacityVal);
+        }
+        renderAllWidgetStyles();
+      });
+
+      for (var tIdx = 0; tIdx < themeBtns.length; tIdx++) {
+        themeBtns[tIdx].addEventListener('click', function () {
+          for (var j = 0; j < themeBtns.length; j++) themeBtns[j].classList.remove('active');
+          this.classList.add('active');
+          var t = this.getAttribute('data-theme');
+          canvas.classList.remove('theme-sky', 'theme-dark', 'theme-light');
+          if (t === 'sky') {
+            canvas.classList.add('theme-sky');
+            globalDarkText = true;
+          } else if (t === 'dark') {
+            canvas.classList.add('theme-dark');
+            globalDarkText = false;
+          } else if (t === 'light') {
+            canvas.classList.add('theme-light');
+            globalDarkText = true;
+          } else {
+            globalDarkText = false;
+          }
+          var widgets = getAllWidgets();
+          for (var i = 0; i < widgets.length; i++) {
+            widgets[i].dataset.darkText = globalDarkText ? '1' : '0';
+          }
+          renderAllWidgetStyles();
+        });
+      }
+
+      customTitle.addEventListener('input', function () {
+        if (!selectedWidget) return;
+        selectedWidget.dataset.userEdited = '1';
+        selectedWidget.dataset.title = this.value;
+        renderWidgetContent(selectedWidget);
+      });
+
+      customDate.addEventListener('change', function () {
+        if (!selectedWidget || !this.value) return;
+        selectedWidget.dataset.date = this.value;
+        renderWidgetContent(selectedWidget);
+      });
+
+      customMode.addEventListener('click', function () {
+        if (!selectedWidget) return;
+        selectedWidget.dataset.mode = selectedWidget.dataset.mode === 'dplus' ? 'dday' : 'dplus';
+        renderWidgetContent(selectedWidget);
+        syncCustomizerFromWidget(selectedWidget);
+      });
+
+      for (var cIdx = 0; cIdx < colorDots.length; cIdx++) {
+        colorDots[cIdx].addEventListener('click', function () {
+          if (!selectedWidget) return;
+          selectedWidget.dataset.color = this.getAttribute('data-color');
+          renderWidgetContent(selectedWidget);
+          syncCustomizerFromWidget(selectedWidget);
+        });
+      }
+
+      for (var sIdx = 0; sIdx < sizeBtns.length; sIdx++) {
+        sizeBtns[sIdx].addEventListener('click', function () {
+          if (!selectedWidget) return;
+          applySizePreset(selectedWidget, this.getAttribute('data-size'));
+        });
+      }
+
+      addWidgetBtn.addEventListener('click', function () {
+        openWidgetModal(null, selectedWidget);
+      });
+
+      // Context menu event delegation
+      ctxMenu.addEventListener('click', function (e) {
+        var btn = e.target.closest('button');
+        if (!btn || btn.disabled) return;
+        e.stopPropagation();
+        var w = ctxTargetWidget;
+        var act = btn.getAttribute('data-ctx');
+        var presetSz = btn.getAttribute('data-ctx-size');
+
+        if (act === 'size-toggle') {
+          ctxSizeSub.classList.toggle('open');
+          return;
+        }
+        if (presetSz && w) {
+          applySizePreset(w, presetSz);
+          closeCtxMenu();
+          return;
+        }
+        if (!w) { closeCtxMenu(); return; }
+
+        if (act === 'add') {
+          openWidgetModal(null, w);
+        } else if (act === 'edit') {
+          openWidgetModal(w, w);
+        } else if (act === 'text') {
+          toggleWidgetFlag(w, 'darkText');
+        } else if (act === 'blur') {
+          toggleWidgetFlag(w, 'blur');
+        } else if (act === 'progress') {
+          toggleWidgetFlag(w, 'progress');
+        } else if (act === 'center') {
+          toggleWidgetFlag(w, 'center');
+        } else if (act === 'topmost') {
+          toggleWidgetFlag(w, 'topmost');
+        } else if (act === 'lock') {
+          toggleWidgetFlag(w, 'locked');
+        } else if (act === 'delete') {
+          deleteWidgetEl(w);
+        }
+        closeCtxMenu();
+      });
+
+      // Modal events
+      modalTitle.addEventListener('input', updateModalPreview);
+      modalDate.addEventListener('change', updateModalPreview);
+      modalRepeat.addEventListener('change', updateModalPreview);
+      var modeRadios = widgetModal.querySelectorAll('input[name="modalMode"]');
+      for (var mIdx = 0; mIdx < modeRadios.length; mIdx++) {
+        modeRadios[mIdx].addEventListener('change', function () {
+          updateModalRepeatAvailability();
+          updateModalPreview();
+        });
+      }
+      var quickBtns = widgetModal.querySelectorAll('.modal-quick-btn');
+      for (var qIdx = 0; qIdx < quickBtns.length; qIdx++) {
+        quickBtns[qIdx].addEventListener('click', function () {
+          var spec = this.getAttribute('data-quick-days');
+          if (spec === 'yearend') {
+            var t = getTodayLocal();
+            var ye = new Date(t.getFullYear(), 11, 31);
+            if (ye < t) ye = new Date(t.getFullYear() + 1, 11, 31);
+            modalDate.value = formatYmd(ye);
+          } else {
+            modalDate.value = addDaysYmd(parseInt(spec, 10) || 0);
+          }
+          updateModalPreview();
+        });
+      }
+      for (var mcIdx = 0; mcIdx < modalColorChips.length; mcIdx++) {
+        modalColorChips[mcIdx].addEventListener('click', function () {
+          modalSelectedColor = this.getAttribute('data-modal-color');
+          updateModalColorHighlight();
+        });
+      }
+      modalCloseBtn.addEventListener('click', closeWidgetModal);
+      modalCancelBtn.addEventListener('click', closeWidgetModal);
+      widgetModal.addEventListener('click', function (e) {
+        if (e.target === widgetModal) closeWidgetModal();
+      });
+      modalSaveBtn.addEventListener('click', function () {
+        var title = modalTitle.value ? modalTitle.value.trim() : '';
+        if (!title) {
+          modalError.textContent = isKo ? '일정 제목을 입력해 주세요.' : 'Please enter a title.';
+          modalError.style.display = 'block';
+          modalTitle.focus();
+          return;
+        }
+        if (!modalDate.value || !/^\d{4}-\d{2}-\d{2}$/.test(modalDate.value)) {
+          modalError.textContent = isKo ? '날짜를 선택해 주세요.' : 'Please select a date.';
+          modalError.style.display = 'block';
+          modalDate.focus();
+          return;
+        }
+
+        var newDate = modalDate.value;
+        var mode = getModalSelectedValue('modalMode', 'dday');
+        var repeatCycle = mode === 'dplus' ? 'none' : (modalRepeat.value || 'none');
+        var memo = modalMemo.value ? modalMemo.value.trim() : '';
+        var darkText = getModalSelectedValue('modalTextColor', 'black') === 'black';
+        var progressOn = modalProgress.checked;
+        var blurOn = modalBlur.checked;
+        var centerOn = modalCenter.checked;
+        var topmostOn = modalTopmost.checked;
+        var chosenSize = getModalSelectedValue('modalSize', 'keep');
+
+        if (modalEditingWidget) {
+          var w = modalEditingWidget;
+          w.dataset.userEdited = '1';
+          w.dataset.title = title;
+          w.dataset.date = newDate;
+          if (!w.dataset.startDate || w.dataset.startDate > newDate) {
+            w.dataset.startDate = formatYmd(getTodayLocal());
+          }
+          w.dataset.mode = mode;
+          w.dataset.repeat = repeatCycle;
+          w.dataset.color = modalSelectedColor;
+          w.dataset.memo = memo;
+          w.dataset.darkText = darkText ? '1' : '0';
+          w.dataset.progress = progressOn ? '1' : '0';
+          w.dataset.blur = blurOn ? '1' : '0';
+          w.dataset.center = centerOn ? '1' : '0';
+          w.dataset.topmost = topmostOn ? '1' : '0';
+
+          if (chosenSize !== 'keep' && w.dataset.locked !== '1') {
+            applySizePreset(w, chosenSize);
+          }
+          renderWidgetContent(w);
+          applyWidgetStyle(w);
+          clampPosition(w);
+          selectWidget(w);
+        } else {
+          widgetSeq += 1;
+          var sz = SIZE_PRESETS[chosenSize] ? chosenSize : 'md';
+          var dim = SIZE_PRESETS[sz];
+          var slot = findSmartSlot(dim.w, dim.h, modalAnchorWidget);
+          var nw = createDemoWidget({
+            seq: widgetSeq,
+            title: title,
+            titleKo: title,
+            titleEn: title,
+            memo: memo,
+            memoKo: memo,
+            memoEn: memo,
+            userEdited: '1',
+            color: modalSelectedColor,
+            mode: mode,
+            repeat: repeatCycle,
+            size: sz,
+            date: newDate,
+            startDate: formatYmd(getTodayLocal()),
+            darkText: darkText,
+            blur: blurOn,
+            progress: progressOn,
+            center: centerOn,
+            topmost: topmostOn,
+            opacity: opacityVal,
+            left: slot.left,
+            top: slot.top
+          });
+          selectWidget(nw);
+        }
+        closeWidgetModal();
+      });
+
+      canvas.addEventListener('pointerdown', function (e) {
+        if (e.target === canvas) {
+          var all = getAllWidgets();
+          for (var i = 0; i < all.length; i++) {
+            all[i].classList.remove('mini-open', 'demo-peek');
+          }
+          renderAllWidgetStyles();
+        }
+      });
+
+      document.addEventListener('pointerdown', function (e) {
+        if (ctxMenu.style.display === 'block' && !ctxMenu.contains(e.target)) {
+          closeCtxMenu();
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (ctxMenu.style.display === 'block') { closeCtxMenu(); return; }
+          if (widgetModal.classList.contains('open')) { closeWidgetModal(); }
+        }
+      });
+
+      function initDemoWidgets() {
+        var w1 = document.getElementById('widget1');
+        var w2 = document.getElementById('widget2');
+        w1.dataset.date = addDaysYmd(31);
+        w1.dataset.startDate = formatYmd(getTodayLocal());
+        w2.dataset.date = addDaysYmd(-44);
+        w2.dataset.startDate = addDaysYmd(-44);
+
+        bindWidgetEvents(w1);
+        bindWidgetEvents(w2);
+        renderWidgetContent(w1);
+        renderWidgetContent(w2);
+        clampPosition(w1);
+        clampPosition(w2);
+        selectWidget(w1);
+      }
+
+      window.addEventListener('resize', function () {
+        closeCtxMenu();
+        var ws = getAllWidgets();
+        for (var i = 0; i < ws.length; i++) {
+          updateResponsiveTypography(ws[i]);
+          clampPosition(ws[i]);
+        }
+      });
+
+      initDemoWidgets();
+      applyLanguage();
+    })();
+  </script>
+</body>
+</html>
